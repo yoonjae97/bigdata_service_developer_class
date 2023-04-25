@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        tr{text-align:center;}
+    </style>
+</head>
+<body>
+    <table border="1" width="200px" align="center">
+        <caption>스마트인재개발원</caption>
+        <!-- caption : 표 제목 -->
+        <!-- border : 테이블 두께 -->
+        <!-- table : 테이블 생성 선언 -->
+        <!-- align : 테이블 정렬, width : 테이블 넓이 -->
+        <tr bgcolor="yellow">
+            <!-- bgcolor : 행 배경색 -->
+            <!-- tr : table row -->
+            <th>이름</th>
+            <th colspan="2">성별/주소</th>
+
+        </tr>
+        <tr>
+            <td>이람다</td>
+            <td>여자</td>
+            <td rowspan="3">서울</td>
+        </tr>
+        <tr>
+            <td>최성우</td>
+            <td rowspan="2">남자</td>
+
+        </tr>
+        <!-- table align은 표 자체의 정렬이고
+        tr align은 텍스트의 정렬 -->
+        <tr>
+            <td>김윤호</td>
+        </tr>
+    </table>
+
+</body>
+</html>
