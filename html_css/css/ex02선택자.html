@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            background-color: aqua;
+            color:red;
+        }
+        /* 전체선택자는 중요도가 낮다.
+        이미 적용된 속성이 있으면 전체선택자의 선언은 적용되지 않음 */
+        body {
+            background-color: aqua;
+        }
+        /* body선택자와 전체선택자는 다르다.
+        전체선택자는 모든 요소 선택해서 선언을 적용 */
+        p {
+            color:blue;
+        }
+        li {
+            color:brown;
+        }
+        /* 요소를 선택하는 것 : 타입선택자 */
+        #list {
+            text-align:center;
+        }
+    .list2{
+          text-align:right;  
+        }
+        /* 정의한 후 id는 한 페이지당 한 번만 사용 */
+    </style>
+</head>
+<body>
+    <h1>CSS</h1>
+    <p>웹 페이지를 꾸며주는 스타일시트 언어</p>
+    <ul>
+        <li class="list2">CSS 기본 구조</li>
+        <li id="list">CSS 선택자</li>
+        <li class="list2">CSS 스타일</li>
+    </ul>
+</body>
+</html>
