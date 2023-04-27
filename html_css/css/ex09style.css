@@ -1,0 +1,46 @@
+/* body {
+    margin:0;
+} */
+
+div {
+    width:100px;
+    height:100px;
+    background-color:skyblue;
+    opacity:0.5;
+    /* opacity : 투명도 */
+    /* background-color: rgba(0, 0, 0, 0.5); */
+}
+
+/* .static {
+    position:static;
+}
+
+.relative {
+    position: relative;
+    top: 30px;
+    left: 50px;
+}
+
+.absolute {
+    position:absolute;
+    /* background-color: burlywood; */
+    /* top:30px;
+} */
+
+.fixed {
+    position:fixed;
+    background-color:blueviolet;
+    top:70px;
+    left:50px;
+}
+/* absolute, fixed는 절대 좌표에 따라 이동 */
+
+.sticky {
+    position:sticky;
+    background-color:darkslategray;
+    top: 20px;
+    left:200px;
+}
+
+
+

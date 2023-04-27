@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .default {
+            background-color: tomato;
+            height:200px;
+            width:400px;
+            /* text-align:center;
+            line-height:200px;
+            display:flex;
+            flex-direction:row-reverse;
+            flex-wrap:wrap-reverse;
+            justify-content: center;
+            justify-content 수평 정렬
+            align-items:center; */
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 200px;
+        }
+        .item {
+            width: 70px;
+            height: 50px;
+            background-color: blue;
+            border:3px solid white;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="default">
+        <div class="item">item1</div>
+        <div class="item">item2</div>
+        <div class="item">item3</div>
+
+        <div class="item">item4</div>
+        <div class="item">item5</div>
+        <div class="item">item6</div>
+        <div class="item">item7</div>
+        <div class="item">item8</div>
+    </div>
+
+</body>
+</html>

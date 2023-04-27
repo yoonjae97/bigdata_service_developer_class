@@ -1,0 +1,82 @@
+.box {
+  width:100px;
+  height:100px;
+  background-color:turquoise;
+  border-radius:0px 0px 100px 0px;
+  /* px, %로 반지름을 설정, 50%=원 */
+  /* 
+  1개 입력 : 네 모서리 모두
+  2개 입력 : 왼쪽위+오른쪽아래 / 왼쪽아래+오른쪽위 각각 같은 수치 적용
+  3개 입력 : 왼쪽위, 오른쪽위+왼쪽아래, 오른쪽아래 순서로 적용 
+  4개 입력: 왼쪽위, 오른쪽위, 오른쪽아래 ,왼쪽아래 순서로 적용
+  */ 
+}
+
+div {
+    width: 70px;
+    height: 40px;
+    /* background-color: lightslategray; */
+    margin: 10px;
+}
+
+.solid {
+    border-style: solid;
+    /* 단선 */
+}
+
+.double {
+    border-style: double;
+    /* 2줄 */
+}
+
+.dotted {
+    border-style: dotted;
+}
+
+.dashed {
+    border-style: dashed;
+}
+
+.groove {
+    border-style: groove;
+    border-width:10px;
+}
+
+.ridge {
+    border-style: ridge;
+    border-width:10px;
+}
+
+.inset {
+    border-style: inset;
+    border-width:10px;
+}
+
+.outset {
+    border-style: outset;
+    border-width:10px;
+}
+
+
+.underline {
+    border-bottom-style: double;
+    border-left-style: dashed;
+    border-top-style:inset;
+    border-top-width:5px;
+    background-color: rgb(185, 204, 221);
+    text-align:center;
+    line-height:40px;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-bottom: 50px solid transparent;
+    border-top: 50px solid transparent;
+    border-left: 50px solid skyblue;
+    border-right: 50px solid transparent;
+
+}
+
+
+
