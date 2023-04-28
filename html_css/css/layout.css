@@ -1,0 +1,66 @@
+body {
+    margin:0;
+}
+
+.wrapper {
+    width:500px;
+    height:500px;
+}
+
+header {
+    height:10%;
+    background-color: #EA4335;
+}
+
+nav {
+    height:10%;
+    background-color: #FF5E00
+}
+
+.main {
+    height:60%;
+    background-color: aliceblue;
+    position:relative;
+}
+
+.section {
+    height:30px;
+    width:70%;
+    float:right;
+}
+
+.side {
+    width: 30%;
+    height: 100%;
+    background-color: #4285f4;
+    float: left;
+}
+
+.item1 {
+    background-color: rgb(28, 158, 158);
+    height:50%
+}
+
+.item2{
+    background-color: rgb(24, 171, 80);
+    height:50%
+}
+
+footer {
+    background-color: #8A8D92;
+    height:20%
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

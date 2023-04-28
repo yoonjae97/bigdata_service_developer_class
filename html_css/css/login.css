@@ -1,0 +1,103 @@
+@font-face {
+    font-family: 'MBC1961GulimM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+* {
+    box-sizing: border-box;
+    font-family: MBC1961GulimM;
+}
+
+body {
+    background-color: cadetblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:100vh;
+}
+
+
+
+fieldset {
+    width:400px;
+    height: 300px;
+    border-color: rgb(149, 179, 205);
+    background-color: rgb(212, 247, 235);
+    border-style:solid;
+    font-size: 2em;
+    font-weight: 900;
+    border-radius: 20px;
+}
+
+fieldset
+
+input {
+    width:300px;
+    height:40px;
+    margin:10px;
+    padding:10px;
+    border-radius: 15px;
+    border-color: rgba(255, 255, 255, 0.8);
+    border-width:3px;
+    position:relative;
+    left:15px;
+    top:20px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+input::placeholder {
+    opacity: 0.5;
+    text-shadow:1px 1px 0.5px black;
+}
+
+input:focus {
+    border-color: rgba(255, 255, 255, 0.8);
+    outline-color: rgba(255, 255, 255, 0.8);
+}
+
+button {
+    width: 200px;
+    height: 30px;
+    font-size: 0.5em;
+    position: relative;
+    top: 10px;
+    left: 80px;
+    border-style:outset;
+    border-color:bisque;
+    background-color:rgb(231, 254, 246);
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+}
+
+button:hover {
+    border-style: inset;
+    border-radius: 15px;
+    background-color: rgb(205, 239, 239);
+
+}
+
+p {
+    position: relative;;
+    left:30px;
+    font-size: 10px;
+    transition-duration: 2s;
+}
+
+.forgot {
+    top:8px
+}
+
+.signup {
+    left:100px;
+    top:10px
+}
+
+a {
+    color: rgb(24, 137, 137)
+}
+a:hover {
+    color:red;
+}

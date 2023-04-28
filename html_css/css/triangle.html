@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .white {
+            width:200px;
+            height:150px;
+            background-color: red;
+            border-radius: 20%;
+            display:flex;
+            justify-self:center;
+            align-items: center;
+        }
+
+
+        .triangle {
+            width : 0px;
+            height : 0px;
+            border-left: 50px solid white;
+            border-right : 50px solid  transparent;
+            border-top : 30px solid  transparent;
+            border-bottom:30px solid transparent;
+            position:relative;
+            left:75px;
+            transition-duration: 2s;
+        }
+
+        .triangle:hover{
+            /* transform:scale(1.2); */
+            /* transform: rotate(-45deg); */
+            transform: scale(1.2); translateY(-30px);
+        }
+    </style>
+</head>
+<body>
+    <div class="white">
+        <div class="triangle">
+
+        </div>
+    </div>
+</body>
+</html>
