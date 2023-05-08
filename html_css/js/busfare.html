@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bus fare</title>
+</head>
+<body>
+    <h1 id="notice"></h1>
+
+    <script>
+        const notice = document.getElementById('notice');
+
+        const age = parseInt(prompt('나이를 입력해주세요'))
+        // 0보다 작거나 120보다 많으면 유효한 나이를 입력해주세요
+        //  65세 이상이거나 7세 이하면 버스요금은 0원
+        // 청소년(7세 이상, 20세 이하 )720원
+
+        // if (age === null || isNaN(age)) {
+        //     notice.innerText = '숫자를 입력해주세요'
+        // } else {
+        //     if (age < 0 | age >= 120) {
+        //     notice.innerText = '유효한 나이를 입력해주세요'
+        // } else if (age < 7 | age >= 65) {
+        //     notice.innerText = '버스요금은 0원 입니다.'
+        // } else if (age >= 7 && age <= 20) {
+        //     notice.innerText = '버스요금은 720원 입니다.'
+        // } else {
+        //     notice.innerText = '버스요금은 1200원 입니다.'
+        // }
+        // }
+
+        switch(true) {
+            case (age === null ):
+                notice.innerText = '나이를 입력해주세요';
+                break;
+            case (isNaN(age)):
+                notice.innerText = '숫자를 입력해주세요';
+                break;
+            case (age < 0 | age >= 120):
+                notice.innerText = '유효한 나이를 입력해주세요';
+                break;
+            case (age < 7 | age >= 65):
+                notice.innerText = '무료입니다.';
+                break;
+            case (age >= 7 && age <= 20):
+                notice.innerText = '버스요금은 720원 입니다.';
+                break;
+            default:
+                notice.innerText = '버스요금은 1200원 입니다.';
+        
+        }
+
+    </script>
+</body>
+</html>
