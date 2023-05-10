@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>script type</title>
+    <!-- 외부 방식 : 외부의 js파일 안에 작성 후 연결 -->
+    <!-- 
+        async : HTML 로딩을 멈추지 않음 
+        defer : HTML 로딩이 다 되고 나서 script 실행
+     -->
+     <script defer src="ex01scriptType.js"></script>
+</head>
+<body>
+    <!-- 내부 방식 head 혹은 body 영역의 script 태그안에 직접 작성 -->
+    <script>
+        console.log('hello world');
+    </script>
+
+    <!-- 인라인 방식 : 태그에 직접 기능을 넣어줄 때 작성 -->
+<button onmouseenter="console.log('마우스 올림')">mouse</button>
+</body>
+</html>

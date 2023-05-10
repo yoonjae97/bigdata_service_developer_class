@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>array practice</title>
+    <style>
+        table, td, th {
+            border:1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            width:400px;
+
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // 과목수, 과목 이름, 과목점수, 총점, 평균 구하기
+        // 표로 나타내기
+        
+        let subNum = 0;
+        let subName = [];
+        let subScore = [];
+        let totalScore = 0;
+        let avgScore = 0;
+        // 1. 과목 수 입력
+        subNum = Number(prompt('과목 수 입력'));
+
+        // 2. 과목 수만큼 과목 이름 입력
+        for (let i = 0; i < subNum; i++) {
+            subName.push(prompt('과목 이름을 입력해주세요'));
+            let temp = Number(prompt('과목 점수를 입력해주세요'))
+            subScore.push(temp);
+            totalScore += temp
+        }
+
+        // for (let score of subScore) {
+        //     totalScore += score;
+        // }
+
+        avgScore = (totalScore / subScore.length);
+        // console.log(avgScore);
+        // console.log(totalScore);
+
+        document.write(`
+        <table>
+            <tr>
+        `)
+
+        for (let i = 0; i < subNum; i++){
+                document.write(`<td>${subName[i]}</td>`);
+        }
+
+        document.write(`
+                <td>총합</td>
+                <td>평균</td>
+            </tr>
+            <tr>
+            `)
+
+        for (let i = 0; i < subScore.length; i++){
+                document.write(`<td>${subScore[i]}</td>`);
+        }
+        document.write(`
+                <td>${totalScore}</td>
+                <td>${avgScore}</td>
+            </tr>
+        </table>
+        `)
+
+    </script>
+</body>
+</html>

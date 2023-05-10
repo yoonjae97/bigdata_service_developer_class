@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            justify-content: center;
+            /* border: 1px solid black;
+            border-collapse: collapse; */
+        }
+        th{
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+        }
+        td {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <table>
+            <tr>
+                <th class="menu1">솔의눈</th>
+                <th class="menu2">콜라</th>
+                <th class="menu3">밀키스</th>
+                <th class="menu4">오렌지주스</th>
+            </tr>
+            <tr>
+                <td><button id='dd' class="menu1" onclick="choice(this.value, this.innerText)" value="솔의눈"> 400</button></td>
+                <td><button class="menu2" value="콜라"> 500</button></td>
+                <td><button class="menu3" value="밀키스"> 600</button></td>
+                <td><button class="menu4" value="오렌지주스"> 700</button></td>
+            </tr>
+        </table>
+
+    </div>
+    <script src="vending.js"></script>
+</body>
+</html>

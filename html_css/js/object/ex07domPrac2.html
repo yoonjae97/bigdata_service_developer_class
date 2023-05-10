@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Practice</title>
+</head>
+<body>
+    <span id="spanTag">0</span>
+    <br>
+    <button onclick="increase()">+1 증가</button>
+    <button onclick="decrease()">-1 감소</button>
+    <script>
+        // let spanTag = document.getElementById('spanTag');
+
+        // function increase() {
+        //     spanTag.innerText = Number(spanTag.innerText) + 1
+        // }
+
+        // function decrease() {
+        //     if (spanTag.innerText != 0){
+        //         spanTag.innerText = Number(spanTag.innerText) - 1
+        //     }
+        // }
+
+        let spanTag = document.getElementById('spanTag');
+
+        const increase = () => {
+            let spanNum = Number(spanTag.innerText);
+            spanTag.innerText = spanNum + 1;
+        }
+
+        const decrease = () => {
+            let spanNum = Number(spanTag.innerText);
+            if (spanNum > 0) {
+            spanTag.innerText = spanNum - 1;
+            }
+        }
+    </script>
+</body>
+</html>
+         

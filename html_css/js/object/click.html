@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <h1>클릭 한번 해볼까요?</h1>
+        <button onclick="mkH1()">h1태그 생성</button>
+        <button onclick="aTag()">a태그 생성</button>
+        <button onclick="ulTag">ul태그 생성</button>
+    </div>
+    <div class="divTag"></div>
+        <script>
+            let divVal = document.getElementById('divTag');
+            // 글자를 누적해줄 공간인 div 가지고 오기
+
+
+            // 함수 별로 가지고 온 div태그 안에 태그 생성하기
+
+
+            function mkH1() {
+                // innerText = html태그 적용 안 되므로 innerHTML사용
+                divVal.innerHTML += '<h1>DOM 활용하기</h1>'
+            }
+            function aTag(){
+                divVal.innerHTML += '<a href="http://google.co.kr">Google로 이동!</a>'
+            }
+            function ulTag(){
+                divVal.innerHTML += '<ul><li>HTML</li><li>CSS</li><li>JS</li></ul>'
+            }
+
+        </script>
+</body>
+</html>

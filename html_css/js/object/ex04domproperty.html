@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom property</title>
+</head>
+<body>
+    <div id="container">
+        <p>Hello World</p>
+        <p style="display:none">Hidden Text</p>
+    </div>
+    <button onclick="text()">Text</button>
+    <button onclick="html()">HTML</button>
+
+    <script>
+        // 1. div 요소에 접근
+        let domVal = document.getElementById('container')
+        console.log('요소 가져오기 : ', domVal)
+        
+        // 2. text 버튼 클릭시 요소에서 내용만 -> innerText, textContent
+        // innerText : 보여지는 내용
+        // textContent : 전부
+        function text() {
+            console.log(domVal.innerText);
+            console.log(domVal.textContent);
+            // 내용 변경
+            domVal.innerText = '<h1>JavaScript</h1>';
+        }
+
+        // html 버튼 클릭 시 요소 태그까지 -> innerHTML
+        function html() {
+            domVal.innerHTML = '<h1>JavaScript</h1>';
+        }
+    </script>
+</body>
+</html>
