@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>call back</title>
+</head>
+<body>
+    <button class="btn">Click</button>
+
+    <script>
+        // callback 함수
+        // 어떤 이벤트가 발생 했거나, 특정 시점 도달 시
+        // 시스템에서 호출하는 함수 
+        // 함수에 파라미터로 들어가는 함수
+        // 함수(파라미터) => 함수(콜백함수);
+
+        // 1. 이벤트 핸들러 & 리스너
+        // 이벤트 발생 : addEventListener()
+
+        // getElementById -> querySelector
+        // querySelector : 요소에 상관없이 사용 가능
+        // querySelector('body') -> 바디태그 선택
+        // querySelector('#click') -> id가 click인 요소 선택
+
+        let btn = document.querySelector('.btn')
+        // 0번째에 있는 클래스명 btn인 요소 선택
+        // document.querySelectorAll('.btn')[1] -> 클래스 btn인 요소 중 2번째 선택
+
+        btn.addEventListener('click', ()=>{
+            console.log('👻')
+        })
+        
+        // btn.addEventListner(click, function() {})
+
+        // 2. 타임핸들러
+        console.log(1);
+        console.log(2);
+        // 지연 시간이 0이어도 setTimeout은 나중에 실행
+        // setTimeout(함수 or 실행문, 지연초(ms))
+        setTimeout(function() { console.log(3)}, 0);
+        console.log(4);
+
+        // 쓰레드에서 진행이 다 완료 되어야 콜백함수가 실행된다.
+    </script>
+</body>
+</html>

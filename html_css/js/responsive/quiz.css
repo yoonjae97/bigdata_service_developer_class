@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: darkturquoise;
+    text-align: center;
+    
+}
+
+h1 {
+    margin-top:140px;
+    margin-bottom: 50px;
+}
+form {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    border: 1px solid black;
+    border-radius:20px;
+    width:600px;
+    padding:30px 10px 0 30px;
+    margin: auto;
+    background-color: aliceblue;
+    font-family: 'S-CoreDream-3Light';
+}
+
+#submitBtn {
+    margin:5px 0px 5px 0;
+    width:100px;
+} 
+
+.option p:hover {
+    color:red;
+}

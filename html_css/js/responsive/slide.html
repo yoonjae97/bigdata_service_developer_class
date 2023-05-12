@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin:0;
+        }
+        img {
+            width : 300px;
+        }
+        .wrapper {
+            width:400px;
+            height:180px;
+            overflow: hidden;
+        }
+        .box {
+            transform:translateY(-181px);
+            transition:0.5s;
+        }
+        .btn {
+            position: absolute;
+            left:110px;
+            top:150px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="box">
+            <div class="item">
+                <img src="bg1.jpg" alt="">
+            </div>
+            <div class="item"> 
+                <img src="bg2.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="bg3.jpg" alt="">
+            </div>
+        </div>
+        <div class="btn">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+        </div>
+    </div>
+    <script>
+        const btn1 = document.querySelectorAll('button')[0];
+        const btn2 = document.querySelectorAll('button')[1];
+        const btn3 = document.querySelectorAll('button')[2];
+        const box = document.querySelector('.box');
+            
+        btn2.addEventListener('click', ()=>{
+            box.style.transform = 'translateY(-181px)';
+        })
+
+        btn3.addEventListener('click', ()=> {
+            box.style.transform = 'translateY(-361px)';
+        })   
+
+        btn1.addEventListener('click', ()=> {
+            box.style.transform = 'translateY(0px)';
+        })   
+    </script>
+</body>
+</html>

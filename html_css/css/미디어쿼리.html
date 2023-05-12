@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미디어 쿼리</title>
+    <style>
+
+        .flex > ul {
+            font-size: 3em;
+            font-weight: 900;
+        }
+
+        .hidden {
+            display: none;
+        }
+        @media screen and (max-width: 728px) {
+            body {
+                background-color: tomato;
+            }
+            .flex > ul {
+                display:flex;
+                color:white;
+                justify-content: space-between;
+                font-size:2em;
+                font-weight:900;
+            }
+            .hidden {
+                display: block;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="flex">
+        <ul>
+            <li>a</li>
+            <li>b</li>
+            <li>c</li>
+            <li>d</li>
+            <li>e</li>
+        </ul>
+
+        <p class="hidden">이 글씨는 작아지면 나타납니다</p>
+    </div>
+</body>
+</html>

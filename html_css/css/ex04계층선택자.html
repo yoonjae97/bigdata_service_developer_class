@@ -8,15 +8,15 @@
     <style>
         /* .rule strong {
             color:red;
-        } */
-        /* .rule strong 모든 지정된 자손에 대해 적용
+        }
+        .rule strong 모든 지정된 자손에 대해 적용
             .rule > strong 직계 자식에게만 적용 (자식 선택자)
-        */
-        /* .rule > ol > li+li {
+       
+        .rule > ol > li+li {
             color:red;
-        } */
-        /* 근접후행 선택자 */
-        .rule > ol > strong + span {
+        }
+        근접후행 선택자 */
+        .rule > ol > li#dd~li {
             color:red;
         }
         /* 후행 선택자 */
@@ -34,6 +34,12 @@
             <li>결석하지 않기</li>
                 <strong>조퇴도 안 됨</strong>
                 <span>불가피할 땐 꼭 담임선생님께 말 하기</span>
+            <li>복습하기</li>
+            <li id="dd">sadf복습하기</li>
+            <li>복습하기</li>
+            <li>복습하기</li>
+            <li>복습하기</li>
+            <li>복습하기</li>
             <li>복습하기</li>
         </ol>
     </div>

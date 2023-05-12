@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quiz</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+    <h1>올바른 답을 선택 후에 다음 버튼을 누르세요.</h1>
+    <form name="myform">
+        <div class="question">1. UML 다이어그램 중 순차 다이어그램에 대한 설명으로 틀린 것은?</div>
+        <div class="option">
+            <p><input type="radio" name="answer" value="1">①객체 간의 동적 상호작용을 시간 개념을 중심으로 모델링하는 것이다.</p>
+            <p><input type="radio" name="answer" value="2">②주로 시스템의 정적 측면을 모델링하기 위해 사용한다.</p>
+            <p><input type="radio" name="answer" value="3">③일반적으로 다이어그램의 수직 방향이 시간의 흐름을 나타낸다.</p>
+            <p><input type="radio" name="answer" value="4">④회귀 메시지(Self-Message), 제어블록(Statement block)등으로 구성된다.</p>
+        </div>
+        <input type="button" value="답변 제출" id="submitBtn" onclick="valid(this.form)">
+        <div class="answer"></div>
+    </form>
+
+    <script>
+        const answer = document.querySelector('.answer')
+
+        function valid(form) {
+            let count = 0;
+            for (let i = 0; i < form.answer.length; i++) {
+                if (form.answer[i].checked) {
+                    count += 1;
+                }
+            }
+            if (count === 0) {
+                alert('답변을 선택해주세요')
+            }
+            else {
+                if (form.answer[1].checked) {
+                    answer.innerHTML = '<p>정답입니다</p>'
+                } else {
+                    answer.innerHTML = '<p>틀렸습니다</p>'
+                }
+            }
+        }
+        const input = document.querySelector('submitBtn')
+
+    </script>
+</body>
+</html>
