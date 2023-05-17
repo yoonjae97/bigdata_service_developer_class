@@ -96,6 +96,14 @@ def score(request, name, a, b, c):
     res = HttpResponse(f'{name}의 총점은 {total}이고 평균은 {avg}입니다')
     return res
 
+# http://127.0.0.1:8000/logon
+def logon(req):
+    userid = req.POST.get('userid')
+    password = req.POST.get('password')
+    
+    res = HttpResponse(f"userid:{userid} password:{password}")
+    return res
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', index),
@@ -105,8 +113,9 @@ urlpatterns = [
     path('sub', sub),
     path('mul/<x>/<y>', mul),
     path('gugu1', gugu1),
-    path('gugu1/<int:dan>', gugu2),
+    path('gugu2/<int:dan>', gugu2),
     path('score/<name>/<int:a>/<int:b>/<int:c>', score),
+    path('logon', logon),
 ]
 
 

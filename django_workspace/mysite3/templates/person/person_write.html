@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- form 태그
+    1. action : 서버로 정보를 전송하면 전송된 정보를 받아서 처리할 url
+    2. method : 서버로 정보를 전송하는 방법 (get, post)
+    method 지정하지 않으면 GET 방식
+    get : 비교적 간단하고 길지않은 정보를 보낼 때 사용
+          header 만 전송
+    post : 보안을 요하고 긴 정보를 보낼 때 사용 (20~30mb 까지만 업로드 허용)
+         header를 먼저 보내고 body에 데이터를 전송한다
+     -->
+    <form method="post"action='/person/save/'>
+        {% csrf_token %}
+        이름 : <input type="text" name="name"><br>
+        전화번호 : <input type="text" name="phone"><br>
+        <button type="submit">등록</button>
+    </form>
+</body>
+</html>

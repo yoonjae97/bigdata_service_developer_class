@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST" action="/study/save/">
+        {% csrf_token %}
+        이름 : <input type="text", name="name"> <br>
+        kor : <input type="int", name="kor"> <br>
+        eng : <input type="int", name="eng"> <br>
+        mat : <input type="int", name="mat"> <br>
+        <button type="submit">등록</button>
+    </form>
+</body>
+</html>
