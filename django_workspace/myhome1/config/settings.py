@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-9z3qz2nb7y_0u+ek+-wukv#onsw353qpf%(wg%_!%c@tzr(j5!"
+SECRET_KEY = "django-insecure-#6ywj*q_b#94+-t=@^fq_va)-on8vs@9&j%%bycf+v+e1zl7&x"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,10 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # 사용자가 만든 앱 등록
-    # study 폴더의 app.py파일의 StudyConfig 클래스를 등록
-    "study.apps.StudyConfig",
-    "person.apps.PersonConfig",
+    "board.apps.BoardConfig", # 등록해야 Model 개채 만든다
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -55,9 +51,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "config.urls"
-
-# BASE_DIR : 어플리케이션이 작동중인 폴더 정보가 있다.
-# os.path.join(경로, '폴더명') 경로/폴더명
 
 TEMPLATES = [
     {
@@ -81,10 +74,19 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# pip install cx_Oracle 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # }
+    'default':{
+        "ENGINE":"django.db.backends.oracle",
+        "NAME":"XE", # XE 설치하면 특별히 바꾸지 않으면 이름이 XE다.
+        "USER":"c##user01",
+        "PASSWORD":"1234",
+        "HOST":"127.0.0.1",
+        "PORT":'1521'
     }
 }
 
@@ -123,8 +125,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
+# 로그인 로그아웃할때 이동할 URL임
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

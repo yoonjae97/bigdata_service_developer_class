@@ -10,10 +10,7 @@
 
     <form name="myform">
         {% csrf_token %}
-        이름 : <input type="text", name="name"> <br>
-        국어 : <input type="int", name="kor"> <br>
-        영어 : <input type="int", name="eng"> <br>
-        수학 : <input type="int", name="mat"> <br>
+        <p>{{ form.as_p }}</p>
         <button type="text" id="btnsave">등록</button>
     </form>
 </body>

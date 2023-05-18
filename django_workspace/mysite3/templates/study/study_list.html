@@ -7,17 +7,30 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>study list</h1>
+    <form name="myform">
+        <h1>study list</h1>
 
-    <table>
-        {% for score in scoreList %}
-        <tr>
-            <td><a href="/study/view/{{ score.id }}">{{ score.name }}</a></td>
-            <td>{{ score.kor }}</td>
-            <td>{{ score.eng }}</td>
-            <td>{{ score.mat }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+        <table>
+            {% for score in object_list %}
+            <tr>
+                <td><a href="/study/view/{{ score.id }}">{{ score.name }}</a></td>
+                <td>{{ score.kor }}</td>
+                <td>{{ score.eng }}</td>
+                <td>{{ score.mat }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <!-- input 태그류만 name 가질 수 있음 -->
+        <button type="button" id="btnwrite">글쓰기</button>
+    </form>
 </body>
+<script>
+    
+    let btnwrite = document.getElementById("btnwrite");
+    btnwrite.addEventListener('click', function() {
+    let frm = document.myform;
+    frm.action='/study/write';
+    frm.submit(); // 서버로 전송
+    })
+</script>
 </html>
