@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-#6ywj*q_b#94+-t=@^fq_va)-on8vs@9&j%%bycf+v+e1zl7&x"
+SECRET_KEY = "django-insecure-in52ii5#9ak350!u812s_!=sd&q#$43%ex-4%vqqd1r6a07aup"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "board.apps.BoardConfig", # 등록해야 Model 개채 만든다
+    "board.apps.BoardConfig", # 앱등록
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -52,6 +53,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "config.urls"
 
+import os
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -73,20 +75,16 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# pip install cx_Oracle 
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
-    'default':{
+    "default": {
+        # "ENGINE": "django.db.backends.sqlite3",
+        # "NAME": BASE_DIR / "db.sqlite3",
         "ENGINE":"django.db.backends.oracle",
-        "NAME":"XE", # XE 설치하면 특별히 바꾸지 않으면 이름이 XE다.
-        "USER":"c##user01",
+        "NAME":"XE",
+        "USER":"user02",
         "PASSWORD":"1234",
         "HOST":"127.0.0.1",
-        "PORT":'1521'
+        "PORT":1521
     }
 }
 
@@ -113,9 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ko-kr"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Seoul"
 
 USE_I18N = True
 
@@ -125,15 +123,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# css/image 보관 폴더
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 
-# 로그인 로그아웃할때 이동할 URL임
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-# 모델을 만들면 모델마다 기본 id라는 파일을 생성
-# 자동증가가 되는 필드, primarykey 가 되는 필드 생성
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

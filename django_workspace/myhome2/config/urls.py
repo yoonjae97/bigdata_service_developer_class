@@ -15,16 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from . import views
-from board.views import BoardList, BoardDetail
+from django.urls import path, include
 
-app_name = 'board'
-
-# redirect(app_name:path의 name)
 urlpatterns = [
-    path("list/", BoardList.as_view(), name='list'), #/board/board_list.html
-    path('detail/<int:pk>/', BoardDetail.as_view()), #/board/board_detail.html
-    path("write/", views.write),
-    path('save/', views.save),
+    path("admin/", admin.site.urls),
+    path('board/', include('board.urls')),
 ]

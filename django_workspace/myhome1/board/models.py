@@ -12,3 +12,8 @@ class Board(models.Model):
     wdate = models.DateTimeField() # 작성일
     hit = models.IntegerField() # 조회수
     filename = models.CharField(max_length=200)
+
+# python manage.py makemigrations board
+# python manage.py migrate 테이블 생성
+# select table_name from tabsl
+# desc 테이블명

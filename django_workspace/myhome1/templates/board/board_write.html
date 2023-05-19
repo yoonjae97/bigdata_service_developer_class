@@ -7,12 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>board detail</h1>
-    {{ object.title }}<br>
-    {{ object.writer }}<br>
-    {{ object.content }}<br>
-    {{ object.wdate }}<br>
-    {{ object.hit }}<br>
-    <button onclick="location.href='/board/list'">뒤로 가기</button>
+    <form method="POST" action="/board/save/">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>저장</button>
+    </form>
 </body>
 </html>
