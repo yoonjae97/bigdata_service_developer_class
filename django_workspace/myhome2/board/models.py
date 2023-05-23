@@ -9,6 +9,11 @@ class Board(models.Model):
     wdate = models.DateTimeField()
     hit = models.IntegerField(default=0)
 
+# class Answer(models.Model):
+#     writer = models.ForeignKey(Board, on_delete=models.CASCADE)
+#     review = models.TextField()
+#     wdate = models.DateTimeField()
+
 # python manage.py makemigrations board
 # python manage.py migrate
 # settings.py 에서 작업 (db정보 바꾸고) 후 진행

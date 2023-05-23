@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+</head>
+<body>
+    <div id="result">
+            <h1>
+                Ajax test
+            </h1>
+        </div>
+    <button id="btnCall">ajax호출하기</button>
+</body>
+</html>
+<script>
+    $(document).ready(()=>{
+        $('#btnCall').click( ()=>{
+            $.ajax({
+                url:'/ajax/result', // 서버 url
+                data:{}, // 보낼 데이터
+                type:'get', // 데이터 전송방식 지정
+                dataType:'json' // 데이터 수신방식 지정
+            })
+            .done( (response, error, status)=>{
+                console.log(response);
+                $("#result").html(response.result);
+            }) // 성공시 
+            .fail( (response, error, status)=>{
+                console.log(status);
+            }) // 실패시
+            
+        })
+    })
+// ajax 호출 이름이 ajax
+// 동기방식 - 함수 호출 시 함수 일처리가 끝나야 return
+// a 실행 -> a 끝 -> b 실행 ..
+// callA(), calllB()
+
+// 비동기방식 - a, b, c 얼마만큼 시간 걸릴지 모름
+// a를 시작하고 바로 리턴. 일은 아직 안끝남, 시스템이 백그라운드에서
+// 대신 일처리를 하고, 일이 끝났음을 알리는 함수를 a한테 전달
+// callA(callback), callB(callback)
+// 서버로 부터 응답이 왔는데 성공이면 done이 호출
+// 실패면 fail이 호출된다
+// {} -> json
+</script>

@@ -13,3 +13,13 @@ class BoardForm(forms.ModelForm):
             'writer':'작성자',
             'contents':'내용'
         }
+
+# class reviewForm(forms.ModelForm):
+#     class Meta:
+#         model = Answer
+#         fields = ['writer', 'review', 'wdate']
+#         labels = {
+#             'writer':'작성자',
+#             'review':'리뷰',
+#             'wdate':'작성일'
+#         }

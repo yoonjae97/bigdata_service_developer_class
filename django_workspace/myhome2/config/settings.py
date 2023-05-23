@@ -29,10 +29,12 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+#templates (html) 파일들에서 연산 수행해야할 때
+# pip install django-mathfilters
 INSTALLED_APPS = [
+    'member.apps.MemberConfig',
     "board.apps.BoardConfig", # 앱등록
-
+    "mathfilters",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -123,7 +125,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# 물리적 폴더를 브라우저 url에 맵핑하는 과정이다
+# static : css, js, image 등
 STATIC_URL = "static/"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

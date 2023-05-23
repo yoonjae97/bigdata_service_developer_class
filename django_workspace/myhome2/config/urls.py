@@ -17,7 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# redirect 에서 필요함
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('board/', include('board.urls')),
+    path('ajax/', include('ajaxtest.urls')),
+    path('member/', include('member.urls')),
 ]

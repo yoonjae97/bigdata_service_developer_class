@@ -17,9 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+
+# redirect에서 필요
 app_name = 'board'
 
 urlpatterns = [
-    path("list/", views.list),
-    path('list2/', views.list2),
+    path("list/", views.list), # orm방식
+    path('list2/<int:pg>', views.list2, name='list'), # 직접 쿼리 실행
+    path('view/<int:id>', views.views, name='view'),
+    path('write', views.write),
+    path('save', views.save),
+    path('modify', views.modify),
+    #path('review_write', views.review_write)
 ]

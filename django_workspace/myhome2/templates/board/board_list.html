@@ -1,82 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-    <nav class="navbar navbar-expand-sm bg-info navbar-dark">
-        <div class="container-fluid">
-            <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Active</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-            </ul>
-        </div>
-        </nav>          
+{% extends 'base.html' %}
+{% block content %}
 
 
-    <div class="container mt-5">
-        <table class="table">
-            <colgroup>
-                <col width="8%"/>
-                <col width="*"/>
-                <col width="12%"/>
-                <col width="12%"/>
-                <col width="8%"/>
-            </colgroup>
-            <thead class="table-secondary">
-              <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
-                <th>조회수</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for boardItem in boardList %}
+
+        <div class="container mt-5">
+            <table class="table">
+                <colgroup>
+                    <col width="8%"/>
+                    <col width="*"/>
+                    <col width="12%"/>
+                    <col width="12%"/>
+                    <col width="8%"/>
+                </colgroup>
+                <thead class="table-secondary">
                 <tr>
-                    <td>{{boardItem.id}}</td>
-                    <td>{{boardItem.title}}</td>
-                    <td>{{boardItem.writer}}</td>
-                    <td>{{boardItem.wdate}}</td>
-                    <td>{{boardItem.hit}}</td>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
                 </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    
-    <div class="container mt-5">
-        <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </div>
-    <div class="container mt-5" style="text-align: right;">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary">Apple</button>
-            <button type="button" class="btn btn-primary">Samsung</button>
-            <button type="button" class="btn btn-primary">Sony</button>
+                </thead>
+                <tbody>
+                    {% for boardItem in boardList %}
+                    <tr>
+                        <td>{{boardItem.id}}</td>
+                        <td><a href="/board/view/{{boardItem.id}}">{{boardItem.title}}</a></td>
+                        <td>{{boardItem.writer}}</td>
+                        <td>{{boardItem.wdate}}</td>
+                        <td>{{boardItem.hit}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-    </div>
-    
-</body>
-</html>
+        
+        {% include "./paging.html" %}
+
+        <div class="container mt-5" style="text-align: right;">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" id="btnWrite">글쓰기</button>
+            </div>
+        </div>
+
+<script>
+function goPage(pg)
+{
+    // 자바스크립로 페이지 이동 - get 방식으로 간단히 이동할때
+    location.href="/board/list2/"+pg;
+
+    // 이게 아닐경우에는 form태그 참조를 가져와서 사용한다.
+}
+
+$(document).ready( ()=> {
+    $('#btnWrite').click(()=>{
+        // 화살표함수는  this 사용 불가
+        $("#myform").prop('action', '/board/review_write');
+        $('#myform').prop('method', 'post');
+        $('#myform').submit();
+    });
+})
+</script>
+
+{% endblock %}
