@@ -12,11 +12,21 @@ import java.io.OutputStreamWriter;
 public class prac {
 
 	public static void main(String[] args) {
+//		File one = new File("c:\\Temp\\서울시 서초구 모범음식점 신청 현황.csv");
+		
+//		File InputStreamReader = new InputStreamReader("c:\\Temp\\서울시 서초구 모범음식점 지정 현황.csv", "UTF-8");
+//		File thr = new File("c:\\Temp\\서울시 서초구 모범음식점 취소 현황.csv");
+		File total = new File("c:\\Temp\\서초구 모범음식점 전체 현황.csv");
+		
 		int c;
 		try {
+//			FileReader one_fr = new FileReader(one);
+//			FileReader two_fr = new FileReader(one);
+//			FileReader thr_fr = new FileReader(one);
 			BufferedReader one = new BufferedReader( new InputStreamReader(new FileInputStream("c:\\\\Temp\\\\서울시 서초구 모범음식점 신청 현황.csv"),"ms949"));
 			BufferedReader two = new BufferedReader( new InputStreamReader(new FileInputStream("c:\\\\Temp\\\\서울시 서초구 모범음식점 지정 현황.csv"),"ms949"));
 			BufferedReader thr = new BufferedReader( new InputStreamReader(new FileInputStream("c:\\\\Temp\\\\서울시 서초구 모범음식점 취소 현황.csv"),"ms949"));
+			
 			BufferedWriter fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("c:\\\\Temp\\\\서초구 모범음식점 전체 현황.csv"), "ms949"));
 			while ((c = one.read()) != -1) {
 				fw.write((char) c);
