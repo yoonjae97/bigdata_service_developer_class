@@ -1,0 +1,21 @@
+package kr.co.smhrd;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class FileInOutStream {
+
+	public static void main(String[] args) {
+		byte b[] = {7,51,3,4,-1,24};
+		try {
+			FileOutputStream fout = new FileOutputStream("c:\\Temp\\test_2.txt");
+			for(int i=0, i<b.length, i++) 
+				fout.write(b[i]);
+			fout.close();
+		}
+		catch(IOException e ) { }
+		System.out.println("c:\\Temp\\test.txt를 저장하였습니다");
+
+	}
+
+}
