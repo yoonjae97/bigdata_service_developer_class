@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" id="WebApp_ID" version="5.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="5.0">
   <display-name>w20230614_Day1</display-name>
+    <!-- xml : 확장 마크업 언어 <마크> -->
+  <!-- xmlns : xsi 어떤 마크를 사용하겠다. (약속) -->
+  <!-- html : xml인데 http 통신에 사용될 마크들로 약속 -->
+  <!-- servlet : 동적페이지를 톰캣이 호출하기 위해 변수로 등록하는 것 -->
+  <!-- sevlet-mapping : 어떤 요청이 왔을 때 어떤 동적 페이지를 호출할 건지 지정 -->
+  <!-- 배포서술자를 수정하면 무조건 서버를 종료 후 재시작(반영) -->
+  <!-- 배포서술자에 오류가 있으면 서버가 실행되지 않는다.  -->
+  <!-- student/list.do 오류  /student/list.do 오류아님 -->
+  <!-- 다른 동적페이지가 같은 주소를 사용할 때 오류 -->
+  <servlet>
+    <servlet-name>StudentList</servlet-name>
+    <servlet-class>w20230614_Day1.L02JDBCStudentList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudentList</servlet-name>
+    <url-pattern>/student/list.do</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
+    <!-- welcome-file-list : 서버에 아무런 리소스도 요청하지 않으면 그때 반환하는 리소스 -->
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>index.htm</welcome-file>

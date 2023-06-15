@@ -8,7 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+class System2{}
 // 패키지 : 
 // 모듈 : 배포되거나 실행될 수 있는 가장 작은 단위
 // 패키지 : 모듈들의 집합 (기능별), 클래스의 이름을 유일하게 만든다.
@@ -46,8 +46,15 @@ public class L01HelloServlet extends HttpServlet {
 		
 		String aStr = req.getParameter("a"); // 쿼리스트링에 포함된 a를 찾아서 반
 		String bStr = req.getParameter("b");
-		int a = (aStr!=null)?Integer.parseInt(aStr):0;
-		int b = (bStr!=null)?Integer.parseInt(bStr):0;		
+		int a=0, b=0;
+		
+		try {
+			a = Integer.parseInt(aStr);
+			b = (bStr!=null)?Integer.parseInt(bStr):0;	
+		} catch (NumberFormatException e){
+			// log로 저장하거나 테스트
+			e.printStackTrace();
+		}
 		
 		resp.setContentType("text/html;charset=UTF-8");
 		String htmlStr = "<h1>안녕 동적리소스 서블릿</h1>";
@@ -60,6 +67,26 @@ public class L01HelloServlet extends HttpServlet {
 		
 		
 		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 해당 리소스를 post방식으로 요청하면 톰캣서버(main)가 해당 리소스의 doPost를 실행
+		// 톰캣이 요청 정보(url)를 HttpServletRequest req에 참조해서 doPost를 실행
+		// url은 무조건 데이터를 문자열로 전달,
+		String aStr = req.getParameter("a");
+		String bStr = req.getParameter("b");
+		
+		// resp.getWriter()에 문자열을 담아 놓으면 doPost 실행이 끝나고 응답 리소스로 해당 문자열을 사용한다
+		// 만약 문자열의 형식을 지정하면 해당 문자열을 그 형식의 문서로 전달 (default : text/html)
+
+		resp.setContentType("text/html;charset=UTF-8");
+
+		resp.getWriter()
+		.append("<h1>hello.do doPost()</h1>")
+		.append("<h2>post 방식은 양식을 제출할 때 사용합니다.</h2>")
+		.append("<p> a+b="+(aStr+bStr)+"</p>");
+	
 	}
 	
 //	public static void main(String[] args) {
