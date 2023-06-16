@@ -18,6 +18,26 @@
     <servlet-name>StudentList</servlet-name>
     <url-pattern>/student/list.do</url-pattern>
   </servlet-mapping>
+  <!--  -->
+
+   <servlet>
+    <servlet-name>hw</servlet-name>
+    <servlet-class>w20230614_Day1.JDBCInsertStudent</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>hw</servlet-name>
+    <url-pattern>/hw/StudentList.do</url-pattern>
+  </servlet-mapping>
+  
+     <servlet>
+    <servlet-name>studentDetail</servlet-name>
+    <servlet-class>w20230614_Day1.L03JDBCStudentDetail</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>studentDetail</servlet-name>
+    <url-pattern>/student/detail.do</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <!-- welcome-file-list : 서버에 아무런 리소스도 요청하지 않으면 그때 반환하는 리소스 -->
     <welcome-file>index.html</welcome-file>

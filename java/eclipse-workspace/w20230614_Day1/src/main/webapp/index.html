@@ -21,7 +21,14 @@
 			</form>
 		</li>
 		<li><a href="./student/list.do">JDBC로 오라클에 있는 학생 리스트 호출</a></li>
-		<li><a href="./hw/studentList.do">JDBC로 학생 리스트 호출 과제</a></li>
+		<li>
+		<form action="./hw/StudentList.do">
+				번호 : <input type="text" name="num"/>
+				이름 : <input type="text" name="name"/>				
+				<button type="submit">제출</button>
+		</form>
+<!-- 		<a href="./hw/StudentList.do">JDBC로 학생 리스트 호출 과제</a> -->
+		</li>
 	</ol>
 	<h2>Get과 Post 방식(method) </h2>
 	<p>파라미터를 url 인코딩으로 변경해서 전달한다()</p>
@@ -90,5 +97,13 @@
 		<li>python django</li>
 		<li>node.js(v8)</li>
 	</ul>
+	<h2>CRUD Create Read Update Delete</h2>
+	<ul>
+		<li>Read : 리스트(페이징, 정렬, 검색), 상세, 수정양식</li>
+		<li>Create : 등록 액션</li>
+		<li>Update : 수정 액션</li>
+		<li>Delete : 삭제 액션</li>
+	</ul>
+	
 </body>
 </html>

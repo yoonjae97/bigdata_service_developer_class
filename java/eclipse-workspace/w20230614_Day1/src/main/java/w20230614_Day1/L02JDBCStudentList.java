@@ -29,14 +29,13 @@ public class L02JDBCStudentList extends HttpServlet{
 		
 		String html = "";
 		html += "<h1>학생 리스트</h1>";
+		html += "<h2><a href='L05StudentRegister.html'>학생 등록</a></h2>";
 		html += "<table>";
 		/// jdbc 통신 후 학생리스트를 가져옴 -> 학생리스트를 문자열로 변환
 		html += "<tr>"
 				+ "<th>num</th>"
 				+ "<th>name</th>"
-				+ "<th>phone</th>"
-				+ "<th>address</th>"
-				+ "<th>birthday</th>"
+				+ "<th>상세</th>"
 				+ "</tr>";
 		
 		// java.sql.* : jdbc 패키지 자바로 db 접속을 도와주는 라이브러리(모듈)
@@ -56,16 +55,17 @@ public class L02JDBCStudentList extends HttpServlet{
 			while(rs.next()) {
 				int num = rs.getInt("NUM");
 				String name = rs.getString("NAME");
-				String phone = rs.getString("PHONE");
-				String addr = rs.getString("ADDRESS");
+
 				String birth = rs.getString("BIRTHDAY");
 				html += "<tr>";
 				html += "<td>" + num + "</td>";
 				html += "<td>" + name + "</td>";
-				html += "<td>" + phone + "</td>";
-				html += "<td>" + addr + "</td>";
 				html += "<td>" + birth + "</td>";
-				
+				html += "<td><a href='./detail.do?num="
+						+ num 
+						+ "'>"
+						+ "상세"
+						+ "</a></td>";
 				html += "</tr>";
 			}
 			
@@ -80,5 +80,21 @@ public class L02JDBCStudentList extends HttpServlet{
 		resp.getWriter().append(html);	
 	}
 }
-
+/* 초기형태의 웹앱 Model1
+ * 특징 : 하나의 동적 리소스의 db접속(Model), 요청응답처리(Controller, 응답할 html (View)가 같이 존재한다.
+ * Model : DBA가 작업하는 곳 (db 튜닝, 쿼리 생성, 스키마 관리...)
+ * Controller : Backend 개발자가 작업하는 곳 (응용 앱을 만드는 사람)
+ * View : Frontend 개발자 or 퍼블리셔 or 디자이너가 작업하는 곳
+ * 하나의 동적 리소스를 여러 개발자가 공유하기 때문에 수정 통합하기 힘들다.
+ * Sass Less css를 재사용하기 위해 객체지향 문법을 사용하도록 돕는다.
+ * TypeScript, Sass Less 같은 프론트엔드 기술 사용 불가능(css를 객체지향 문법을 사용하도록 돕는다.)
+ * Model 기술 중에 Mybatis 나 JPA 같은 쿼리와 접속을 관리하는 라이브러리를 사용할 수 없다.
+ * 보안에 취약하다
+ * 
+ * Model2 MVC 패턴 : MVC를 분리해서 기술을 적용하는 디자인 패턴
+ * 디자인 패턴 : 코드를 재사용하기 위해 구조를 약속 통일하는 것 (구조를 익히기 어렵다.)
+ * 
+ * 
+ * 
+ */
 
