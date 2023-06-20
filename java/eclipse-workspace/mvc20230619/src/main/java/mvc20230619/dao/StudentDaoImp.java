@@ -53,48 +53,25 @@ public class StudentDaoImp implements StudentDao{
 			detail.setPhone(rs.getString("phone"));
 			detail.setAddress(rs.getString("address"));
 			detail.setBirthday(rs.getString("birthday"));
+			
 		}
 	 return detail;	
 }	
-	
 	@Override
-	public int delete(int num) throws Exception {
-		String sql = "DELETE FROM STUDENT WHERE num=?";		
+	public int delete(int num) {
 		int delete = 0;
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1,  num);
-		delete = pstmt.executeUpdate();
-				
 		return delete;
 	}
 	
 	@Override
 	public int update(StudentDto student) throws Exception {
 		int update = 0;
-		String sql = "UPDATE STUDENT SET name=?, phone=?, address=?, birthday=?"
-				+ "WHERE num=?";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, student.getName());
-		pstmt.setString(2, student.getPhone());
-		pstmt.setString(3, student.getAddress());
-		pstmt.setString(4, student.getBirthday());
-		pstmt.setInt(5, student.getNum());
-		update = pstmt.executeUpdate();
 		return update;
 	}
 	
 	@Override
-	public int insert(StudentDto student) throws Exception {
+	public int insert(StudentDto student) {
 		int insert = 0;
-		String sql = "INSERT INTO STUDENT(num, name, phone, address, birthday)"
-				+ "VALUES (?, ?, ?, ?, ?)";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, student.getNum());
-		pstmt.setString(2, student.getName());
-		pstmt.setString(3, student.getPhone());
-		pstmt.setString(4, student.getAddress());
-		pstmt.setString(5, student.getBirthday());
-		insert = pstmt.executeUpdate();
 		return insert;
 	}
 

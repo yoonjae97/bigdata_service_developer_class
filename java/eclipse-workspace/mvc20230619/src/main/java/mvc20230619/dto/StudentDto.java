@@ -42,7 +42,7 @@ public class StudentDto {
 	@Override
 	public String toString() {
 		return "Studentdto [num=" + num + ", name=" + name + ", phone=" + phone + ", address=" + address + ", birthday="
-				+ birthday + "]\n";
+				+ birthday + "]";
 	}
 	
 	
