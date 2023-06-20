@@ -117,7 +117,8 @@ public class InstanceOfEx {
 //		rs.setGender("남자"); // 업캐스팅된 객체는 pf 메소드 사용 불가
 //		rs.fPrint();
 		System.out.println("-------------");
-		rs.setDepartment("빅데이터분석");
+		rs.setDepartment("빅데이터분"
+				+ "석");
 		rs.rPrint();
 		rs.pPrint();
 		

@@ -20,4 +20,27 @@
 			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\j20230614_Day11"/>
 		</list>
 	</section>
+	<section name="ExternalProjectImportWizard">
+		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\mvc20230619"/>
+			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\w20230619"/>
+			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\j20230613_Day10"/>
+			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\j20230612_Day9"/>
+			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\j20230609_Day8"/>
+			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\j20230608_Day7"/>
+			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\j20230608_1"/>
+			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\j20230607_Day6"/>
+			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\j20230605_Day5"/>
+			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\j20230602_Day4"/>
+			<item value="D:\ubion\bigdata_service_developer_class\java\eclipse-workspace\j20230601_Day3"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
+	</section>
 </section>
