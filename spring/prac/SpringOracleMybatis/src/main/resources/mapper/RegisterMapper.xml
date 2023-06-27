@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.home.dao.RegisterDAO">
+	<insert id="registerInsert"> 
+		insert into register(userid, userpwd, username, tel, email, writedate)
+		values (#{userid}, #{userpwd}, #{username}, #{tel}, #{email}, sysdate) 
+			<!-- 세미콜론 없어야함
+		namespace의 id 메소드로 가서 (dto) 객체 사용
+		#{private 변수 이름}->'hong' / 
+		${private 변수 이름}-> hong
+		문자처리에서 차이 발생 
+		숫자 데이터 처리는 상관없지만 문자는 $ 사용불가-->
+	</insert>
+</mapper>

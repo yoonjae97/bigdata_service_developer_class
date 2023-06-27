@@ -1,0 +1,91 @@
+@charset "UTF-8";
+body, ul, li {
+	margin:0; 
+	padding:0px; 
+	list-style-type:none; /* 초기화 */
+}
+
+body {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.Logo {
+	height:100px;
+	line-height:100px;
+	font-size:3em;
+	text-align:center;
+}
+.Logo a:link, .Logo a:visited, .Logo a:hover {
+	text-decoration:none;
+	color:black;
+}
+.clockdiv {
+	vertical-align: middle;
+	background-color:#071418;
+	width:1000px;
+	height:60px;
+	text-align:center;
+	color:white;
+	margin:0 auto;
+
+}
+
+/* 메뉴 */
+nav a:link, nav a:visited, nav a:hover {
+	text-decoration:none;
+	color:#fff;
+}
+nav {
+  height: 40px;
+  background-color: #004D40;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto; /* Add this line */
+}
+
+nav>ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1000px;
+  height: 40px;
+  margin: 0 auto;
+}
+nav li {
+	float:Left;
+	line-height:40px;
+	padding:0 50px;
+}
+
+
+footer {
+  background: #ddd;
+  text-align: center;
+  line-height: 80px;
+  width: 100%;
+  max-width: 1000px;
+  height: 80px; /* Adjust the height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; /* Add this line */
+}
+
+
+#carouselExampleControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.carousel-inner {
+  text-align: center;
+}
+
+img {
+	height:200px;
+}
