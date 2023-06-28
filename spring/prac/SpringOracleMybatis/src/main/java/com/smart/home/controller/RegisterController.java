@@ -1,5 +1,7 @@
 package com.smart.home.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,4 +54,38 @@ public class RegisterController {
 	public String login() {
 		return "register/login";
 	}
+	
+	// 로그인 DB조회가 목적 - id, name 가져올 것
+	@PostMapping("/loginOk")
+	public ModelAndView loginOk(String userid, String userpwd, HttpSession session) { // loginform의 name과 같게 해야 자동으로 request된다.
+		
+		// dto 일치하는 정보가 있으면 id, name
+		// 	   일치하는 정보가 없으면 null
+		RegisterDTO dto = service.loginOk(userid, userpwd);
+		
+		ModelAndView mav = new ModelAndView();
+		if(dto!=null) { // 성공
+			// 세션에 아이디, 이름, 로그인 상태 기록
+			session.setAttribute("logId", dto.getUserid());
+			session.setAttribute("logName", dto.getUsername());
+			session.setAttribute("logStatus", "Y");
+			
+			mav.setViewName("redirect:/");
+		} else { // 실패
+			// 로그인 폼으로 이동하기 
+			mav.setViewName("redirect:login");
+		}
+		return mav;
+	}
+	
+	// 로그아웃 : 세션 객체 제거 -> 세션 영역에 보관된 변수가 지워지고 새로운 세션이 할당됨
+	@GetMapping("/logout")
+	public ModelAndView logout(HttpSession session) {
+		session.invalidate();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/");
+		return mav;
+	}
+
 }

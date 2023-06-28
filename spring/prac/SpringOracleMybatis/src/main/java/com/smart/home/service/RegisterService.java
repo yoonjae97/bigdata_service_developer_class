@@ -4,4 +4,6 @@ import com.smart.home.dto.RegisterDTO;
 
 public interface RegisterService {
 	public int registerInsert(RegisterDTO dto);
+	
+	public RegisterDTO loginOk(String userid, String userpwd);
 }

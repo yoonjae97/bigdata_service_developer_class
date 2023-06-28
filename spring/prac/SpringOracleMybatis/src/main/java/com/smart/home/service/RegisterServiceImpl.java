@@ -15,10 +15,14 @@ public class RegisterServiceImpl implements RegisterService {
 	
 	@Override
 	public int registerInsert(RegisterDTO dto) {
-		System.out.println(dto.toString());
 		return dao.registerInsert(dto);
 		
 	}
 //	controller -> service ->(»ó¼Ó)serviceimpl -> dao -> mapper(xml)
 // -> dao -> serviceimpl -> service -> controller
+
+	@Override
+	public RegisterDTO loginOk(String userid, String userpwd) {
+		return dao.loginOk(userid, userpwd);
+	}
 }
