@@ -12,6 +12,10 @@
 	
 	.board_list>li:nth-child(6n+3) {
 		width:50%;
+		/* 말줄임표시 */
+		white-space:nowrap;/* 줄바꾸지 않기 */
+		overflow:hidden;/* 넘친 값 숨기기 */
+		text-overflow:ellipsis;/* ... 표시하기 */
 	}	
 
 	.page li {
@@ -29,7 +33,7 @@
 	<div>
 		<a href="/home/board/boardWrite">글쓰기</a>
 	</div>
-	<div>총 레코드 수 : 45개</div>
+	<div>총 레코드 수 : ${pDTO.totalRecord }개</div>
 	<ul class="board_list">
 		<li>&nbsp;</li>
 		<li>no</li>
@@ -37,30 +41,38 @@
 		<li>글쓴이</li>
 		<li>등록일</li>
 		<li>hit</li>
-		
-		<li><input type="checkbox" /></li>
-		<li>100</li>
-		<li><a href="">처음쓰는 글</a></li>
-		<li>goguma</li>
-		<li>06:28 14:36</li>
-		<li>0</li>
-		
-		<li><input type="checkbox" /></li>
-		<li>200</li>
-		<li><a href="">처음쓰는 글</a></li>
-		<li>goguma</li>
-		<li>06:28 14:36</li>
-		<li>0</li>
-		
+		<!--       변수       데이터(리스트)->modelandview에 설정한 변수 -->
+		<c:forEach var="dto" items="${list }">
+			<li><input type="checkbox" /></li>
+			<li>${dto.no }</li>
+			<li><a href="">${dto.subject }</a></li>
+			<li>${dto.userid }</li>
+			<li>${dto.writedate }</li>
+			<li>${dto.hit }</li>
+		</c:forEach>
 	</ul>
 	<div class="page">
 		<ul>
-			<li><a href="#">prev</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
+			<!-- 이전페이지 -->
+			
+			<c:if test="${pDTO.nowPage==1 }">
+				<li>prev</li>
+			</c:if>
+			<c:if test="${pDTO.nowPage>1 }">
+				<li><a href="/home/board/boardlist?nowPage=${pDTO.nowPage-1}">prev</a></li>
+			</c:if>
+			<!-- 페이지번호 변수     시작값                        끝값(end는 작거나 같다여서 -1                        증가값(default가 1이라 생략가능)-->
+			<c:forEach var="p" begin="${pDTO.startPageNum }" end="${pDTO.startPageNum+pDTO.onePageNumCount -1 }" step="1">
+				<c:if test="${p==pDTO.nowPage }">	
+					<li style="background:yellow"><a href="/home/board/boardlist?nowPage=${p}">${p} </a></li>			
+				</c:if>	
+				<c:if test="${p!=pDTO.nowPage }">
+					<li><a href="/home/board/boardlist?nowPage=${p}">${p} </a></li>
+				</c:if>	
+			</c:forEach>
+			
+		
+			
 			<li><a href="#">next</a></li>
 		</ul>
 	</div>
