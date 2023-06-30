@@ -8,7 +8,12 @@ public class PagingDTO {
 	private int totalPage; // 총 페이지 수
 	
 	private int onePageNumCount = 5; // 한 페이지에 표시되는 페이지 수
-	private int startPageNum = 1;
+	private int startPageNum = 1; // 시작페이지
+	
+	private int lastPageRecord = 5; // 마지막 페이지의 남아있는 레코드 수
+	
+	private String searchKey;// 검색키 : subject, content, userid
+	private String searchWord;// 검색어 : 입력한 글자
 	
 	public int getTotalRecord() {
 		return totalRecord;
@@ -20,6 +25,14 @@ public class PagingDTO {
 		
 		// ceil(), round(), floor()
 		totalPage = (int)Math.ceil((double)totalRecord/onePageRecord);
+		
+		// 마지막 페이지의 남아있는 레코드 수
+		lastPageRecord = onePageRecord;//5
+		if(totalPage==nowPage) {
+			if(totalRecord%onePageRecord!=0) {
+				lastPageRecord = totalRecord%onePageRecord; // 1,2,3,4 중 하나의 값
+			}
+		}
 	}
 	public int getTotalPage() {
 		return totalPage;
@@ -55,6 +68,24 @@ public class PagingDTO {
 	}
 	public void setStartPageNum(int startPageNum) {
 		this.startPageNum = startPageNum;
+	}
+	public int getLastPageRecord() {
+		return lastPageRecord;
+	}
+	public void setLastPageRecord(int lastPageRecord) {
+		this.lastPageRecord = lastPageRecord;
+	}
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
+	public String getSearchWord() {
+		return searchWord;
+	}
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
 	}
 	
 	

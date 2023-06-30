@@ -30,9 +30,14 @@
 </style>
 <main>
 	<h1>게시판 목록</h1>
-	<div>
-		<a href="/home/board/boardWrite">글쓰기</a>
-	</div>
+<%-- 	<c:if test="${logId!=null}">
+		<div>
+			<a href="/home/board/boardWrite">글쓰기</a>
+		</div>
+	</c:if> --%>
+		<div>
+			<a href="/home/board/boardWrite">글쓰기</a>
+		</div>
 	<div>총 레코드 수 : ${pDTO.totalRecord }개</div>
 	<ul class="board_list">
 		<li>&nbsp;</li>
@@ -45,7 +50,7 @@
 		<c:forEach var="dto" items="${list }">
 			<li><input type="checkbox" /></li>
 			<li>${dto.no }</li>
-			<li><a href="">${dto.subject }</a></li>
+			<li><a href="/home/board/boardView?no=${dto.no }">${dto.subject }</a></li>
 			<li>${dto.userid }</li>
 			<li>${dto.writedate }</li>
 			<li>${dto.hit }</li>
@@ -56,32 +61,39 @@
 			<!-- 이전페이지 -->
 			
 			<c:if test="${pDTO.nowPage==1 }">
-				<li>prev</li>
+				<li><a href='/home/board/boardlist?nowPage=${pDTO.nowPage}<c:if test="${pDTO.searchWord!=null}">&searchKey=${pDTO.searchKey}&searchWord=${pDTO.searchWord}</c:if>'>prev</a></li>
 			</c:if>
 			<c:if test="${pDTO.nowPage>1 }">
-				<li><a href="/home/board/boardlist?nowPage=${pDTO.nowPage-1}">prev</a></li>
+				<li><a href='/home/board/boardlist?nowPage=${pDTO.nowPage-1}<c:if test="${pDTO.searchWord!=null}">&searchKey=${pDTO.searchKey}&searchWord=${pDTO.searchWord}</c:if>'>prev</a></li>
 			</c:if>
 			<!-- 페이지번호 변수     시작값                        끝값(end는 작거나 같다여서 -1                        증가값(default가 1이라 생략가능)-->
 			<c:forEach var="p" begin="${pDTO.startPageNum }" end="${pDTO.startPageNum+pDTO.onePageNumCount -1 }" step="1">
-				<c:if test="${p==pDTO.nowPage }">	
-					<li style="background:yellow"><a href="/home/board/boardlist?nowPage=${p}">${p} </a></li>			
-				</c:if>	
-				<c:if test="${p!=pDTO.nowPage }">
-					<li><a href="/home/board/boardlist?nowPage=${p}">${p} </a></li>
-				</c:if>	
+				<c:if test="${p<=pDTO.totalPage}"><!-- totaPage보다 큰 페이지 번호는 출력하지 않음 -->
+					<c:if test="${p==pDTO.nowPage }">	
+						<li style="background:yellow"><a href='/home/board/boardlist?nowPage=${p}<c:if test="${pDTO.searchWord!=null}">&searchKey=${pDTO.searchKey}&searchWord=${pDTO.searchWord}</c:if>'>${p}</a></li>			
+					</c:if>	
+					<c:if test="${p!=pDTO.nowPage }">
+						<li><a href='/home/board/boardlist?nowPage=${p}<c:if test="${pDTO.searchWord!=null}">&searchKey=${pDTO.searchKey}&searchWord=${pDTO.searchWord}</c:if>'>${p}</a></li>
+					</c:if>
+				</c:if>
 			</c:forEach>
 			
+			<!-- 다음 페이지 -->
+			<c:if test="${pDTO.nowPage>=pDTO.totalPage}">
+				<li><a href='/home/board/boardlist?nowPage=${pDTO.nowPage}<c:if test="${pDTO.searchWord!=null}">&searchKey=${pDTO.searchKey}&searchWord=${pDTO.searchWord}</c:if>'>next</a></li>
+			</c:if>
+			<c:if test="${pDTO.nowPage<pDTO.totalPage}">
+				<li><a href='/home/board/boardlist?nowPage=${pDTO.nowPage+1}<c:if test="${pDTO.searchWord!=null}">&searchKey=${pDTO.searchKey}&searchWord=${pDTO.searchWord}</c:if>'>next</a></li>
+			</c:if>
 		
-			
-			<li><a href="#">next</a></li>
 		</ul>
 	</div>
 	<div class="search">
-		<form action="#">
+		<form action="/home/board/boardlist">
 			<select name="searchKey">
-				<option>제목</option>
-				<option>글내용</option>
-				<option>글쓴이</option>
+				<option value="subject">제목</option>
+				<option value="content">글내용</option>
+				<option value="userid">글쓴이</option>
 			</select>
 			<input type="text" name="searchWord" id="searchWord" />
 			<input type="submit" value="Search" />

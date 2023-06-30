@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -37,7 +38,7 @@ public class BoardController {
 	public ModelAndView boardList(PagingDTO pDTO) {
 		
 		// 총 레코드 수 선택		
-		pDTO.setTotalRecord(service.totalRecord());
+		pDTO.setTotalRecord(service.totalRecord(pDTO));
 		
 		// 해당페이지 레코드 선택
 		List<BoardDTO> list = service.boardList(pDTO);
@@ -93,9 +94,62 @@ public class BoardController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("text","html", Charset.forName("UTF-8")));
 		return new ResponseEntity<String>(tag, headers, HttpStatus.OK);
+	}
+	
+	// 글내용 보기
+	@GetMapping("/boardView")
+	public ModelAndView boardView(int no) {
 		
+		// 조회수 증가
+		service.hitCount(no);
+		// 레코드 선택
+		BoardDTO dto = service.getBoard(no);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dto", dto);
+		mav.setViewName("board/boardView");
+		
+		return mav;
+	}
+	// 글 수정하기
+	@GetMapping("/boardEdit")
+	public ModelAndView boardEdit(int no) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dto", service.getBoard(no));
+		mav.setViewName("board/boardEdit");
+		return mav;
 		
 	}
 	
-	
+	@PostMapping("/boardEditOk") // no, subject, content
+	public ModelAndView boardEditOk(BoardDTO dto, HttpSession session) {
+		dto.setUserid((String)session.getAttribute("logId"));
+		
+		int result = service.boardEdit(dto);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("no", dto.getNo());
+		if (result>0) { // 글수정 성공 -> 글내용보기
+			mav.setViewName("redirect:boardView");
+		} else {// 글수정 실패 -> 수정폼으로
+			mav.setViewName("redirect:boardEdit");
+		}
+		return mav;
+	}
+	// 글삭제
+	@GetMapping("/boardDel")
+	public ModelAndView boardDel(int no, HttpSession session) {
+		int result = service.boardDel(no, (String)session.getAttribute("logId"));
+		
+		ModelAndView mav = new ModelAndView();
+		if(result>0) { // 삭제 성공 -> 글목록
+			mav.setViewName("redirect:boardlist");
+		} else { // 삭제 실패 -> 글내용
+			mav.addObject("no", no);
+			mav.setViewName("redirect:boardView");
+		}
+		return mav;
+		
+	}
 }
