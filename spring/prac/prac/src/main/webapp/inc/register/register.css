@@ -1,0 +1,119 @@
+@charset "UTF-8";
+.regFormdiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%; /* 부모 요소의 가로 넓이를 100%로 설정 */
+	
+}
+
+.regForm {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px; /* 원하는 가로 넓이로 조정하세요 */
+  width: 100%; /* 폼의 가로 넓이를 100%로 설정 */
+  margin: 0 auto; /* 폼을 가운데 정렬할 수 있도록 추가 */
+}
+
+.regForm fieldset {
+  border: none;
+  padding: 0;
+}
+
+.regForm legend {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.regForm ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.regForm li {
+  margin-bottom: 15px;
+}
+
+.regForm label {
+  display: block;
+  font-weight: bold;
+}
+
+.regForm input[type="text"],
+.regForm input[type="password"],
+.regForm input[type="tel"],
+.regForm input[type="email"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 70%;
+}
+
+.regForm .telContainer {
+  display: flex;
+  align-items: center;
+}
+
+.regForm .telContainer input[type="tel"] {
+  width: 25%;
+}
+
+.regForm .telContainer span {
+  margin: 0 5px;
+  font-weight: bold;
+}
+
+.regForm button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.regForm button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.regForm .birthdateContainer input[type="number"],
+.regForm .birthdateContainer select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 30%;
+}
+
+.regForm .birthdateContainer select {
+  width: 33%;
+}
+
+.regForm select[name="emailDomain"],
+.regForm input[name="email"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+.regForm select[name="emailDomain"] {
+  width: 50%;
+  margin-right: 5px;
+}
+
+.regForm input[name="email"] {
+  width: 43%;
+}
+
+.regForm .emailContainer {
+  display: flex;
+  align-items: center;
+}
