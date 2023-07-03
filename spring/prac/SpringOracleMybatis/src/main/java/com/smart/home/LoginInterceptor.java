@@ -20,9 +20,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		String userid = (String)session.getAttribute("logId");
 		String logStatus = (String)session.getAttribute("logStatus");
-		
 		if (userid==null || logStatus==null || userid.equals("") 
-				|| logStatus.equals("Y")) {
+				|| !logStatus.equals("Y")) {
 			// 로그인 안된 경우
 			response.sendRedirect("/home/register/login");
 			return false; // 원래 매핑으로 가지 않고 로그인 매핑으로 이동한다.

@@ -47,7 +47,7 @@ public class BoardController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list); // 아래 jsp파일에서 사용할 수 있는 변수가 됨
-		mav.addObject("pDTO", pDTO);
+		mav.addObject("pDTO", pDTO); // 현재페이지, 검색어, 검색키
 		mav.setViewName("board/boardlist");
 		return mav;
 	}
@@ -98,7 +98,7 @@ public class BoardController {
 	
 	// 글내용 보기
 	@GetMapping("/boardView")
-	public ModelAndView boardView(int no) {
+	public ModelAndView boardView(int no, PagingDTO pDTO) { // pDTP의 nowpage를 사용하기 위함인데 잘 살펴볼것
 		
 		// 조회수 증가
 		service.hitCount(no);
@@ -107,13 +107,16 @@ public class BoardController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dto", dto);
+		mav.addObject("pDTO", pDTO); // 이미 검색키워드 저장 존재?
 		mav.setViewName("board/boardView");
 		
 		return mav;
 	}
 	// 글 수정하기
 	@GetMapping("/boardEdit")
-	public ModelAndView boardEdit(int no) {
+	public ModelAndView boardEdit(int no) { 
+		// 수정페이지에서 수정하지 않고 이전 페이지로 돌아가고
+		// 이전페이지에서 목록돌아가기 눌렀을때 검색어 유지 기능 시도
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dto", service.getBoard(no));

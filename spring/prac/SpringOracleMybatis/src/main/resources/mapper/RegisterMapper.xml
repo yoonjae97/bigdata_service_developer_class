@@ -17,4 +17,9 @@
 		select userid, username from register
 		where userid=#{param1} and userpwd=#{param2}
 	</select>
+	
+	<select id="findId" resultType="com.smart.home.dto.RegisterDTO">
+		select userid, userpwd from register
+		where username=#{param1} and email=#{param2}
+	</select>
 </mapper>

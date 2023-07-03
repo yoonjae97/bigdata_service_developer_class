@@ -25,4 +25,9 @@ public class RegisterServiceImpl implements RegisterService {
 	public RegisterDTO loginOk(String userid, String userpwd) {
 		return dao.loginOk(userid, userpwd);
 	}
+
+	@Override
+	public RegisterDTO findId(String namefind, String emailfind) {
+		return dao.findId(namefind, emailfind);
+	}
 }

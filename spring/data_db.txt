@@ -1,0 +1,40 @@
+/* 새 테이블 */
+CREATE TABLE data (
+	no NUMBER NOT NULL, /* 일련번호 */
+	subject VARCHAR2(200) NOT NULL, /* 제목 */
+	content CLOB, /* 글내용 */
+	userid VARCHAR2(30) NOT NULL, /* 글쓴이 */
+	hit NUMBER DEFAULT 0, /* 조회수 */
+	writedate DATE DEFAULT sysdate /* 등록일 */
+);
+
+ALTER TABLE data
+	ADD
+		CONSTRAINT PK_data
+		PRIMARY KEY (
+			no
+		);
+
+/* 새 테이블2 */
+CREATE TABLE data_file (
+	f_no NUMBER NOT NULL, /* 일련번호 */
+	no NUMBER NOT NULL, /* 원글번호 */
+	filename VARCHAR2(20) NOT NULL /* 파일명 */
+);
+
+ALTER TABLE data_file
+	ADD
+		CONSTRAINT PK_data_file
+		PRIMARY KEY (
+			f_no
+		);
+
+ALTER TABLE data_file
+	ADD
+		CONSTRAINT FK_data_TO_data_file
+		FOREIGN KEY (
+			no
+		)
+		REFERENCES data (
+			no
+		);

@@ -6,4 +6,6 @@ public interface RegisterService {
 	public int registerInsert(RegisterDTO dto);
 	
 	public RegisterDTO loginOk(String userid, String userpwd);
+
+	public RegisterDTO findId(String namefind, String emailfind);
 }

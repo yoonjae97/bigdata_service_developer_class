@@ -11,6 +11,10 @@
 </script>
 <main>
 	<h1>글내용보기</h1>
+	<div>
+		<a href='/home/board/boardlist?nowPage=${pDTO.nowPage}<c:if test="${pDTO.searchWord!=null}">&searchKey=${pDTO.searchKey}&searchWord=${pDTO.searchWord}</c:if>'>목록</a> 
+		<!-- 목록 클릭시 검색어 저장해서 리스트로 이동 -->
+	</div>
 	<ul>
 		<li>글번호 : ${dto.no}</li>
 		<li>글쓴이 : ${dto.userid}</li>

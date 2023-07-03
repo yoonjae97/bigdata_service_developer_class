@@ -50,7 +50,7 @@
 		<c:forEach var="dto" items="${list }">
 			<li><input type="checkbox" /></li>
 			<li>${dto.no }</li>
-			<li><a href="/home/board/boardView?no=${dto.no }">${dto.subject }</a></li>
+			<li><a href='/home/board/boardView?no=${dto.no }&nowPage=${pDTO.nowPage}<c:if test="${pDTO.searchWord!=null}">&searchKey=${pDTO.searchKey}&searchWord=${pDTO.searchWord}</c:if>'>${dto.subject}</a></li>
 			<li>${dto.userid }</li>
 			<li>${dto.writedate }</li>
 			<li>${dto.hit }</li>
