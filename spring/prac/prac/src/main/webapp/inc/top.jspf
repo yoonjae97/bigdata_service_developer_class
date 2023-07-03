@@ -18,7 +18,8 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/inc/register/register.css" type="text/css" />
+	href="${pageContext.request.contextPath}/inc/register/register.css"
+	type="text/css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/inc/style.css" type="text/css" />
 </head>
@@ -39,7 +40,6 @@
 						</li>
 						<li class="nav-item"><a class="nav-link" href="#">교과 과정</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">게시판</a></li>
-						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/register/registerForm">회원가입</a></li>
 					</ul>
 
 					<form class="d-flex">
@@ -47,7 +47,16 @@
 							placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline-light" type="submit">Search</button>
 					</form>
-					<button class="btn btn-outline-light mr-3">LogOut</button>
+					<c:if test="${logStatus!='Y'}">
+						<li><button class="btn btn-outline-light mr-3"
+								onclick="location.href='${pageContext.request.contextPath}/register/login'">로그인</button></li>
+					</c:if>
+					<c:if test="${logStatus=='Y'}">
+						<li>${logName}님<button class="btn btn-outline-light mr-3"
+								onclick="location.href='${pageContext.request.contextPath}/register/logout'">로그아웃</button></li>
+						<li><button class="btn btn-outline-light mr-3"
+								onclick="location.href='${pageContext.request.contextPath}'">회원정보수정</button></li>
+					</c:if>
 				</div>
 			</div>
 	</header>

@@ -13,4 +13,8 @@
 		문자처리에서 차이 발생 
 		숫자 데이터 처리는 상관없지만 문자는 $ 사용불가-->
 	</insert>
+	<select id="loginOk" resultType="co.kr.smhrd.dto.RegisterDTO">
+		select userid, username from student 
+		where userid=#{param1} and userpwd=#{param2}
+	</select>
 </mapper>
