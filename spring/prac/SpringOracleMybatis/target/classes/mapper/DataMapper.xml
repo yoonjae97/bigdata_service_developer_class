@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.home.dao.DataDAO">
+	<!-- 글등록 -->
+	<insert id="dataInsert"
+		parameterType="com.smart.home.dto.DataDTO">
+		insert into data(no, subject, content, userid, hit, writedate)
+		values(boards_num_seq.nextval, #{subject}, #{content}, #{userid}, 0,
+		sysdate)
+		<!-- 현재 insert에서 생성된 시퀀스 번호를 dto의 no에 setter하기 -->
+		<!-- After는 위의 insert 실행 후 실행 -->
+		<!-- 밑의 select 결과인 no를 dto에 담아준다? -->
+		<selectKey resultType="int" keyProperty="no" order="AFTER">
+			select boards_num_seq.currval from dual
+		</selectKey>
+	</insert>
+
+	<!-- 업로드 파일목록을 insert -->
+	<insert id="dataFileInsert" parameterType="java.util.List">
+		<!-- List<dataFileDTO dto>에서 List를 list가 의미 -->
+		<!-- item은 list객체에서 반복문받을 객체이름 -->
+		<!-- separator는 open 다음 구분기호? -->
+		<!-- close는 insert 수행후 마지막 -->
+		<foreach item="item" collection="list" open="insert all"
+			separator=" " close="select * from dual">
+			into data_file(f_no, no, filename)
+			values(data_file_seq.nextval,
+			#{item.no}, #{item.filename})
+		</foreach>
+		<!-- 아래를 만들어주는 반복문 insert all into data_file(f_no, no, filename) values(data_file_seq.nextval, 
+			#{no}, #{filename}) into data_file(f_no, no, filename) values(data_file_seq.nextval, 
+			#{no}, #{filename}) into data_file(f_no, no, filename) values(data_file_seq.nextval, 
+			#{no}, #{filename}) select * from dual(가상클래스) -->
+	</insert>
+	
+	<!-- 원글삭제 -->
+	<delete id="dataDelete">
+		delete from data where no=${param1} and userid=#{param2}
+	</delete>
+	
+	<!-- 첨부파일목록 지우기 -->
+	<delete id="dataFileDelete">
+		delete from data_file where no=${param1}
+	</delete>
+	
+	<select resultType="com.smart.home.dto.DataDTO" id="getDataList">
+		select no, subject, userid, hit, 
+		to_char(writedate, 'MM-DD HH:MI') writedate
+		from data order by no desc
+	</select>
+</mapper>

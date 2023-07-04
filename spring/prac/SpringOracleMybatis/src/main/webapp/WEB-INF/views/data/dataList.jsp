@@ -27,16 +27,12 @@
 		<li>조회수</li>
 		<li>등록일</li>
 		
-		<li>100</li>
-		<li>제목</li>
-		<li>글쓴이</li>
-		<li>0</li>
-		<li>등록일</li>
-		
-		<li>99</li>
-		<li>제목</li>
-		<li>글쓴이</li>
-		<li>0</li>
-		<li>등록일</li>
+		<c:forEach var="dto" items="${list }">
+			<li>${dto.no }</li>
+			<li>${dto.subject}</li>
+			<li>${dto.userid }</li>
+			<li>${dto.writedate }</li>
+			<li>${dto.hit }</li>
+		</c:forEach>
 	</ul>
 </main>
