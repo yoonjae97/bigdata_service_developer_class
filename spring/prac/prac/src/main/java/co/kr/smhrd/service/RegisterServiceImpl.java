@@ -16,6 +16,11 @@ public class RegisterServiceImpl implements RegisterService{
 	public int registerInsert(RegisterDTO dto) {
 		return dao.registerInsert(dto);
 	}
+
+	@Override
+	public RegisterDTO loginOk(String userid, String userpwd) {
+		return dao.loginOk(userid, userpwd);
+	}
 	
 	
 }
