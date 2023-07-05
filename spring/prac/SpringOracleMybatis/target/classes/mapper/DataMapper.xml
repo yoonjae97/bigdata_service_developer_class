@@ -50,4 +50,24 @@
 		to_char(writedate, 'MM-DD HH:MI') writedate
 		from data order by no desc
 	</select>
+	
+	<select resultType="com.smart.home.dto.DataDTO" id="dataSelect">
+		select no, userid, subject, content, writedate,  hit
+		from data where no=${param1}
+	</select>
+	
+	<update id="hitCount">
+		update data set hit=hit+1
+		where no=${param1}
+	</update>
+	
+	<select resultType="com.smart.home.dto.DataFileDTO" id="dataFileSelect">
+		select no, filename from data_file
+		where no=${param1}
+	</select>
+	
+	<update id="dataUpdate">
+		update data set subject=#{subject}, content=#{content}
+		where no=${no}
+	</update>
 </mapper>

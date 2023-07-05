@@ -29,4 +29,7 @@ public interface DataService {
 	
 	// 첨부파일목록 삭제
 	public int dataFileDelete(int no);
+	
+	// 첨부파일선택
+	public List<DataFileDTO> dataFileSelect(int no);
 }

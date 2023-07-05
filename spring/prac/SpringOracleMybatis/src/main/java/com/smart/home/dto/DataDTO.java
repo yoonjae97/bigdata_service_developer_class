@@ -1,12 +1,18 @@
 package com.smart.home.dto;
 
+import java.util.List;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 // lombok은
 // 어노테이션 @Data를 표기하면 @setter, @getter, @toString, @equals을
 // 기술하지 않아도 된다.
 
 @Data
+@NoArgsConstructor  // 기본 생성자
+@AllArgsConstructor  // 모든 변수 포함 생성자
 public class DataDTO {
 	private int no;
 	private String subject;
@@ -14,5 +20,8 @@ public class DataDTO {
 	private String userid;
 	private int hit;
 	private String writedate;
+	// 삭제된 파일명
+	private List<String> delFile;
+	
 		
 }

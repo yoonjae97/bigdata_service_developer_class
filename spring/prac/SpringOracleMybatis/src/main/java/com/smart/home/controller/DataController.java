@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -138,7 +140,127 @@ public class DataController {
 		}
 		return mav;
 	}
-
+	// 자료실 글 수정 폼
+	@GetMapping("/dataEdit")
+	public ModelAndView dataEdit(int no) {
+		ModelAndView mav = new ModelAndView();
+		// 현재글
+		mav.addObject("dto", service.dataSelect(no));
+		// 첨부파일
+		mav.addObject("fileList", service.dataFileSelect(no));
+		mav.setViewName("data/dataEdit");
+		return mav;
+	}
+	
+	// 자료실 글 수정하기
+	@PostMapping("dataEditOk") 
+	public ModelAndView dataEditOk(DataDTO dto, HttpSession session, HttpServletRequest request ) {
+		// dto 안에는 no, subject, content, filename, delFile
+		// 1. 기존에 업로드 된 파일 목록을 DB에서 가져오기
+		List<DataFileDTO> orgFileList = service.dataFileSelect(dto.getNo());
+		// 2. 새로 추가한 파일 업로드 하기
+		String path = session.getServletContext().getRealPath("/upload");// 저장위치
+		
+		// 3. 새로 추가한 파일 업로드하기 -> MultipartServletRequest(request 객체)
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)request;
+		
+		// 4. 업로드된 파일(MultipartFile)목록
+		List<MultipartFile> fileList = mr.getFiles("filename");
+		
+		// 새로 업로드한 파일명들
+		List<DataFileDTO> newFileList = new ArrayList<DataFileDTO>();
+		
+		// 5. 업로드된 파일이 있으면 업로드(rename)
+		if(fileList != null) { // if 1
+			for(int i=0; i<fileList.size(); i++) { // for 1
+				MultipartFile mf = fileList.get(i);
+				// 파일명구하기
+				String orgFileName = mf.getOriginalFilename();
+				if(orgFileName != null && !orgFileName.equals("")) { // 파일명이 있으면 if 2
+					File f = new File(path);
+					if(f.exists()) { // 같은 파일명을 가진 파일이 존재하면 if 3
+					// 기존 파일명과 중복 검사
+						int p = orgFileName.lastIndexOf(".");
+						String fileNoExt = orgFileName.substring(0, p);
+						String ext = orgFileName.substring(p+1);
+						
+						for(int fileNum=0;;fileNum++) { // for 2
+							String newFile = fileNoExt+" ("+fileNum+")."+ext;
+							f = new File(path, newFile);
+							if(!f.exists()) { // if 4
+								orgFileName = newFile;
+								break;
+							} // if 4
+						} // for2
+					} // if 3
+					// 업로드
+					try {
+						mf.transferTo(new File(path, orgFileName));
+						DataFileDTO fDTO = new DataFileDTO();
+						fDTO.setNo(dto.getNo());
+						fDTO.setFilename(orgFileName);
+						newFileList.add(fDTO);
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+				} // if 2
+			} // for 1
+		} // if
+		// DB등록
+		/*
+		 * 원래 DB파일 -> List<DataFileDTO> orgFileList		a, b, c (+d)
+		 * 새로 업로드된파일 -> List<DataFileDTO> newFileList	d
+		 * 삭제된 파일 -> List<String> delFile					b
+		 */
+		
+		// orgFileList 새로 업로드된 파일목록을 추가하기
+		
+		orgFileList.addAll(newFileList);
+		
+		
+		// orgFileList에서 삭제될 파일 객체를 지우기
+		if(dto.getDelFile() != null) {
+			for(int i=0; i<dto.getDelFile().size(); i++) {
+				String del = dto.getDelFile().get(i);
+				for(int idx=0; idx<orgFileList.size(); idx++) {
+					DataFileDTO resetFile = orgFileList.get(idx);
+					if(del.equals(resetFile.getFilename())) { // 삭제할 파일명과 orgFileList에 있는 파일명이 같으면
+						orgFileList.remove(idx);
+					}
+				}
+			}
+		}
+		// ----
+		ModelAndView mav = new ModelAndView();
+		try {
+			// 원 레코드 업데이트
+			int result = service.dataUpdate(dto);
+			// 파일 목록 -> 삭제, 추가
+			service.dataFileDelete(dto.getNo());
+			
+			service.dataFileInsert(orgFileList);
+			// 삭제한 파일을 /upload 폴더에서 제거
+			if(dto.getDelFile()!=null) {
+				for(String delFilename:dto.getDelFile()) {
+					fileDelete(path, delFilename);
+				}
+			}
+			// 글내용보기로 이동
+			mav.setViewName("redirect:dataView/"+dto.getNo());
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			// 새로 업로드된 파일 삭제
+			for(DataFileDTO fDTO: newFileList) {
+				fileDelete(path, fDTO.getFilename());
+			}
+			
+			// 글 내용수정
+			mav.setViewName("redirecct:dataEdit?no="+dto.getNo());
+		}
+		return mav;
+	}
+	
 	// 파일 삭제하는 메소드 ------------------------------
 	public void fileDelete(String path, String filename) {
 		try {
@@ -147,6 +269,21 @@ public class DataController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// 자료실 글 내용 보기
+	// no라는 변수에 url에 있는 값을 받음 (@PathVariable("no") int no)
+	@GetMapping("/dataView/{no}")
+	public ModelAndView dataView(@PathVariable("no") int no) {
+		ModelAndView mav = new ModelAndView();
+		// 조회수 증가
+		service.hitCount(no);
+		// 해당 글 선택
+		mav.addObject("dto", service.dataSelect(no));
+		// 해당 글의 첨부파일 선택
+		mav.addObject("fileList", service.dataFileSelect(no));
+		mav.setViewName("/data/dataView");
+		return mav;
 	}
 }
 

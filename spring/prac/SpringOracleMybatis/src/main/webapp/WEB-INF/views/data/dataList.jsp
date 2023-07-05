@@ -29,7 +29,7 @@
 		
 		<c:forEach var="dto" items="${list }">
 			<li>${dto.no }</li>
-			<li>${dto.subject}</li>
+			<li><a href="${pageContext.request.contextPath}/data/dataView/${dto.no}">${dto.subject}</a></li>
 			<li>${dto.userid }</li>
 			<li>${dto.writedate }</li>
 			<li>${dto.hit }</li>

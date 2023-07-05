@@ -25,8 +25,7 @@ public class DataServiceImpl implements DataService{
 
 	@Override
 	public DataDTO dataSelect(int no) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.dataSelect(no);
 	}
 
 	@Override
@@ -46,8 +45,7 @@ public class DataServiceImpl implements DataService{
 	
 	@Override
 	public int dataUpdate(DataDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.dataUpdate(dto);
 	}
 
 	@Override
@@ -57,8 +55,13 @@ public class DataServiceImpl implements DataService{
 
 	@Override
 	public void hitCount(int no) {
-		// TODO Auto-generated method stub
+		dao.hitCount(no);
 		
+	}
+
+	@Override
+	public List<DataFileDTO> dataFileSelect(int no) {
+		return dao.dataFileSelect(no);
 	}
 
 }
