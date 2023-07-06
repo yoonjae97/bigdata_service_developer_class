@@ -23,6 +23,10 @@ import com.smart.home.service.BoardService;
 
 // @Controller : 모델뷰를 리턴
 //			: ModelAnvView / Model(모델) String(view)
+// @controller
+// @responsebody 이렇게 하면 view없이 model만 반환
+// @restcontroller와 같은 역할을 하는데 의미는
+// (jsp바뀌지 않고 같은 jsp에서 string, json같은 데이터만 전송한다)
 
 // @RestController : Model이 리턴된다. 
 //				   : Model+viewPage => ModelAndView로 리턴

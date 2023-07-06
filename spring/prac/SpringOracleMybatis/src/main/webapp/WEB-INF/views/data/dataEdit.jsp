@@ -74,7 +74,7 @@
 					<div>${fileDTO.filename }
 						<b>X</b>
 					</div>
-					<input type="hidden" name="" value="${fileDTO.filename} }" />
+					<input type="hidden" name="" value="${fileDTO.filename}" />
 				</c:forEach>
 
 				<div>

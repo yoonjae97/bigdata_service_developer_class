@@ -125,6 +125,7 @@ public class DataController {
 			mav.setViewName("redirect:dataList");
 
 		} catch (Exception e) {
+			System.out.println("hi1");
 			e.printStackTrace();
 			// 원글지우기(dto.no)
 			service.dataDelete(dto.getNo(), dto.getUserid());
@@ -223,22 +224,29 @@ public class DataController {
 			for(int i=0; i<dto.getDelFile().size(); i++) {
 				String del = dto.getDelFile().get(i);
 				for(int idx=0; idx<orgFileList.size(); idx++) {
+					
 					DataFileDTO resetFile = orgFileList.get(idx);
 					if(del.equals(resetFile.getFilename())) { // 삭제할 파일명과 orgFileList에 있는 파일명이 같으면
+						System.out.println(orgFileList.get(idx));
 						orgFileList.remove(idx);
 					}
 				}
 			}
 		}
-		// ----
+		// ---- 
 		ModelAndView mav = new ModelAndView();
 		try {
 			// 원 레코드 업데이트
 			int result = service.dataUpdate(dto);
 			// 파일 목록 -> 삭제, 추가
 			service.dataFileDelete(dto.getNo());
+			if(orgFileList.size()>0) { 
+				// 첨부파일 전부 삭제시 orgFileList가 아예없으면 
+				// sql null 에러 발생해서 if문 사용함
+				// 자료실 글 작성시 첨부파일 여부가 필수냐에 따라 if문 필요 생각할것
+				service.dataFileInsert(orgFileList);
+			}
 			
-			service.dataFileInsert(orgFileList);
 			// 삭제한 파일을 /upload 폴더에서 제거
 			if(dto.getDelFile()!=null) {
 				for(String delFilename:dto.getDelFile()) {
@@ -258,6 +266,36 @@ public class DataController {
 			// 글 내용수정
 			mav.setViewName("redirecct:dataEdit?no="+dto.getNo());
 		}
+		return mav;
+	}
+	// 자료실 글 삭제하기
+	@GetMapping("/dataDel")
+	public ModelAndView dataDelete(int no, HttpSession session) {
+		// 파일 삭제시 경로
+		String path = session.getServletContext().getRealPath("/upload");
+		
+		
+		// 1. 삭제할 글의 첨부파일을 선택보관한다.
+		List<DataFileDTO> fileList = service.dataFileSelect(no);
+		// 2. 첨부파일 레코드를 지운다.
+		int delCount = service.dataFileDelete(no);
+		
+		// 3. 원 글 삭제(DB)
+		int result = service.dataDelete(no, (String)session.getAttribute("logId"));
+		
+		// 4. 첨부파일 삭제
+		for(DataFileDTO dto: fileList) {
+			fileDelete(path, dto.getFilename());
+		}
+		
+		// 5. 삭제시 글목록
+		ModelAndView mav = new ModelAndView();
+		if(result>0) { // 삭제시
+			mav.setViewName("redirect:dataList");
+		} else { // 실패시 글내용보기
+			mav.setViewName("redirect:dataView/"+no);
+		}
+		// 	  실패시 글내용보기
 		return mav;
 	}
 	
