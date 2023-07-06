@@ -68,12 +68,35 @@ public class RegisterController {
 			mav.setViewName("redirect:login");
 		}
 		return mav;
-	}@GetMapping("/logout")
+	}
+
+	@GetMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
 		session.invalidate();
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/");
 		return mav;
+	}
+	
+	@GetMapping("/findIdForm")
+	public String findIdForm() {
+		return "register/findIdForm";
+	}
+	
+	@PostMapping("/findId")
+	public ModelAndView findId(String username, String useremail) {
+		ModelAndView mav = new ModelAndView();
+		try {
+			RegisterDTO dto = service.findId(username, useremail);
+			
+			mav.addObject("userId", dto.getUserid());
+			mav.setViewName("register/returnUserId");
+			return mav;
+		} catch (Exception e){
+			mav.setViewName("register/returnUserId");
+			return mav;
+		}
+	
 	}
 }

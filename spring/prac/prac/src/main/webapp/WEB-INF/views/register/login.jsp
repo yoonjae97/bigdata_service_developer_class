@@ -2,11 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/inc/register/login.css" type="text/css" />
-	
+	href="${pageContext.request.contextPath}/inc/register/login.css"
+	type="text/css" />
+
 <div class="loginFormdiv">
 	<form action="<%=request.getContextPath()%>/register/loginOk"
-		method="post" class="loginForm" name="loginForm" onsubmit="return loginFormCheck()">
+		method="post" class="loginForm" name="loginForm"
+		onsubmit="return loginFormCheck()">
 		<fieldset>
 			<legend>로그인</legend>
 			<ul>
@@ -17,10 +19,13 @@
 					name="userpwd" id="userpwd" style="width: 100%;" placeholder="비밀번호"
 					required /></li>
 				<li>
-				
-					<button type="button" onclick="history.back();">이전페이지로</button>
 					<button type="submit">로그인</button>
-					<button type="button" onclick="location.href='${pageContext.request.contextPath}/register/registerForm'">회원가입</button>
+					<button type="button"
+						onclick="location.href='${pageContext.request.contextPath}/register/registerForm'">회원가입</button>
+				</li>
+				<li>
+					<button type="button" onclick="location.href='${pageContext.request.contextPath}/register/findIdForm'">아이디찾기</button>
+					<button type="button" onclick="">비밀번호찾기</button>
 				</li>
 			</ul>
 		</fieldset>
