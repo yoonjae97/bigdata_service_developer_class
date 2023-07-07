@@ -26,6 +26,11 @@ public class RegisterServiceImpl implements RegisterService{
 	public RegisterDTO findId(String username, String useremail) {
 		return dao.findId(username, useremail);
 	}
+
+	@Override
+	public int dupChk(String id) {
+		return dao.dupChk(id);
+	}
 	
 	
 }

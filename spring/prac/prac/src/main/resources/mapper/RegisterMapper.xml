@@ -22,4 +22,9 @@
 		select userid from student
 		where username=#{param1} and useremail=#{param2}
 	</select>
+	
+	<select id="dupChk">
+		select userid from student
+		where userid=#{param1}
+	</select>
 </mapper>

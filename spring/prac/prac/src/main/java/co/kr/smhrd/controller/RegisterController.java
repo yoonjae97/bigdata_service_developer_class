@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.kr.smhrd.dto.RegisterDTO;
@@ -27,6 +28,7 @@ public class RegisterController {
 	@PostMapping("/registerOk")
 	public ModelAndView registerOk(RegisterDTO dto) {
 		int result = 0;
+		System.out.println(dto);
 		try {
 			dto.setUserAddress(dto.getZipcode(), dto.getStreetAdr(), dto.getDetailAdr());
 			result = service.registerInsert(dto);
@@ -56,17 +58,20 @@ public class RegisterController {
 	@PostMapping("/loginOk")
 	public ModelAndView loginOk(String userid, String userpwd, HttpSession session) {
 
-		RegisterDTO dto = service.loginOk(userid, userpwd);
-		System.out.println(dto.toString());
+		
 		ModelAndView mav = new ModelAndView();
-		if (dto != null) { // 로그인 성공
+		try {
+			RegisterDTO dto = service.loginOk(userid, userpwd);
 			session.setAttribute("logId", dto.getUserid());
 			session.setAttribute("logName", dto.getUsername());
 			session.setAttribute("logStatus", "Y");
 			mav.setViewName("redirect:/");
-		} else {
+		} catch (Exception e){
+			e.printStackTrace();
+			mav.addObject("msg", "fail");
 			mav.setViewName("redirect:login");
 		}
+
 		return mav;
 	}
 
@@ -98,5 +103,13 @@ public class RegisterController {
 			return mav;
 		}
 	
+	}
+	
+	@GetMapping("/dupChk")
+	@ResponseBody
+	public int dupChk(String id) {
+		int result = 0;
+		result = service.dupChk(id);
+		return result;
 	}
 }

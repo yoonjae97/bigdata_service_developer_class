@@ -29,6 +29,67 @@ ALTER TABLE data_file
 			f_no
 		);
 
+/* 새 테이블3 */
+CREATE TABLE board (
+	no NUMBER NOT NULL, /* 일련번호 */
+	subject VARCHAR2(200) NOT NULL, /* 제목 */
+	content CLOB, /* 글내용 */
+	userid VARCHAR2(30) NOT NULL, /* 글쓴이 */
+	hit NUMBER DEFAULT 0, /* 조회수 */
+	writedate DATE DEFAULT sysdate, /* 등록일 */
+	ip VARCHAR2(20) /* 아이피 */
+);
+
+ALTER TABLE board
+	ADD
+		CONSTRAINT PK_board
+		PRIMARY KEY (
+			no
+		);
+
+/* 새 테이블4 */
+CREATE TABLE register (
+	userid VARCHAR2(30) NOT NULL, /* 아이디 */
+	userpwd VARCHAR2(30), /* 비밀번호 */
+	username VARCHAR2(30), /* 이름 */
+	tel VARCHAR2(20), /* 연락처 */
+	email VARCHAR2(100), /* 이메일 */
+	writedate date /* 등록일 */
+);
+
+ALTER TABLE register
+	ADD
+		CONSTRAINT PK_register
+		PRIMARY KEY (
+			userid
+		);
+
+/* 새 테이블5 */
+CREATE TABLE replyboard (
+	re_no NUMBER NOT NULL, /* 글번호 */
+	no NUMBER NOT NULL, /* 원글번호 */
+	coment VARCHAR2(1000) NOT NULL, /* 댓글내용 */
+	userid VARCHAR2(30) NOT NULL, /* 글쓴이 */
+	writedate DATE NOT NULL /* 등록일 */
+);
+
+ALTER TABLE replyboard
+	ADD
+		CONSTRAINT PK_replyboard
+		PRIMARY KEY (
+			re_no
+		);
+
+ALTER TABLE data
+	ADD
+		CONSTRAINT FK_register_TO_data
+		FOREIGN KEY (
+			userid
+		)
+		REFERENCES register (
+			userid
+		);
+
 ALTER TABLE data_file
 	ADD
 		CONSTRAINT FK_data_TO_data_file
@@ -38,3 +99,37 @@ ALTER TABLE data_file
 		REFERENCES data (
 			no
 		);
+
+ALTER TABLE board
+	ADD
+		CONSTRAINT FK_register_TO_board
+		FOREIGN KEY (
+			userid
+		)
+		REFERENCES register (
+			userid
+		);
+
+ALTER TABLE replyboard
+	ADD
+		CONSTRAINT FK_board_TO_replyboard
+		FOREIGN KEY (
+			no
+		)
+		REFERENCES board (
+			no
+		)
+		ON DELETE CASCADE;
+
+ALTER TABLE replyboard
+	ADD
+		CONSTRAINT FK_register_TO_replyboard
+		FOREIGN KEY (
+			userid
+		)
+		REFERENCES register (
+			userid
+		);
+create sequence reply_no_seq
+start with 1
+increment by 1;

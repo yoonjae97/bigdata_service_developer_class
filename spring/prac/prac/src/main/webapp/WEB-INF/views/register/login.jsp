@@ -24,7 +24,8 @@
 						onclick="location.href='${pageContext.request.contextPath}/register/registerForm'">회원가입</button>
 				</li>
 				<li>
-					<button type="button" onclick="location.href='${pageContext.request.contextPath}/register/findIdForm'">아이디찾기</button>
+					<button type="button"
+						onclick="location.href='${pageContext.request.contextPath}/register/findIdForm'">아이디찾기</button>
 					<button type="button" onclick="">비밀번호찾기</button>
 				</li>
 			</ul>
@@ -49,4 +50,12 @@
 		}
 		return true;
 	}
+	 $(document).ready(function correctIdPw () {
+		var message = "<%=request.getParameter("msg")%>";
+		if (message == "fail") {	
+			alert("아이디나 비밀번호가 맞지 않습니다.");
+		}
+	});
+
+	// 실패 메시지를 가져와서 표시하는 함수
 </script>

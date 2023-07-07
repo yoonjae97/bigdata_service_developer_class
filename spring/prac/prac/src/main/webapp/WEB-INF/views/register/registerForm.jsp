@@ -48,6 +48,7 @@
 				<li>
 					<button type="button" onclick="history.back();">이전페이지로</button>
 					<button type="button" onclick="regFormCheck();">회원가입</button>
+					<button type="button" id="dupChk">회원가입</button>
 				</li>
 			</ul>
 		</fieldset>
@@ -190,4 +191,17 @@
 			}
 		}).open();
 	}
+	$("#dupChk").on('click', function() {
+		var id = document.getElementById("userid");
+		$.ajax({
+			data:id,
+			url:'/smhrd/register/dupChk',
+			success:function(result){
+				console.log(result)
+			},
+			error:function(e){
+				console.log(e.responseText);
+			}
+		})
+	})
 </script>

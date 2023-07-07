@@ -25,12 +25,5 @@
 
 		</li>
 	</ul>
-	<hr />
-	<!-- 본인이 쓴 글일때 -->
-	<c:if test="${logId==dto.userid }">
-		<div>
-			<a href="/home/data/dataEdit?no=${dto.no}">수정</a>
-			<a href="javascript:dataDel()">삭제</a> 
-		</div>
-	</c:if>
+	
 </main>
