@@ -23,7 +23,7 @@
 		where username=#{param1} and useremail=#{param2}
 	</select>
 	
-	<select id="dupChk">
+	<select id="dupChk" resultType="String">
 		select userid from student
 		where userid=#{param1}
 	</select>

@@ -51,7 +51,7 @@
 		return true;
 	}
 	 $(document).ready(function correctIdPw () {
-		var message = "<%=request.getParameter("msg")%>";
+		let message = "<%=request.getParameter("msg")%>";
 		if (message == "fail") {	
 			alert("아이디나 비밀번호가 맞지 않습니다.");
 		}

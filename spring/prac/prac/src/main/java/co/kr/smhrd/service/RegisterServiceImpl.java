@@ -28,7 +28,7 @@ public class RegisterServiceImpl implements RegisterService{
 	}
 
 	@Override
-	public int dupChk(String id) {
+	public String dupChk(String id) {
 		return dao.dupChk(id);
 	}
 	

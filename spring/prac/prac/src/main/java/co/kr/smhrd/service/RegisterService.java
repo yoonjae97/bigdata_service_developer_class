@@ -6,7 +6,7 @@ public interface RegisterService {
 	public int registerInsert(RegisterDTO dto);
 	public RegisterDTO loginOk(String userid, String userpwd);
 	public RegisterDTO findId(String username, String useremail);
-	public int dupChk(String id);
+	public String dupChk(String id);
 }
 
 
