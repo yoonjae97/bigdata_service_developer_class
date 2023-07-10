@@ -37,8 +37,8 @@
 		<beans:property name="host" value="smtp.naver.com" />
 		<beans:property name="port" value="587" />
 		<beans:property name="username"
-			value="winterer601@naver.com" />
-		<beans:property name="password" value="dbswo601!19" />
+			value="" />
+		<beans:property name="password" value="" />
 		<beans:property name="defaultEncoding" value="UTF-8" />
 		<beans:property name="javaMailProperties">
 			<beans:props>

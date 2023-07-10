@@ -124,7 +124,7 @@ public class RegisterController {
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 				
 				messageHelper.setFrom("winterer601@naver.com");
-				messageHelper.setTo("mistyone19@naver.com");
+				messageHelper.setTo(resultDTO.getEmail());
 				messageHelper.setSubject(subject);
 				messageHelper.setText("text/html;charset=UTF-8", content);
 				mailSender.send(message);
