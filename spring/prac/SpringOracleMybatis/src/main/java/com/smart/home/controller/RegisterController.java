@@ -1,11 +1,11 @@
 package com.smart.home.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +24,9 @@ public class RegisterController {
 	@Autowired // 객체를 생성하여 DI(의존성주입)해준다.
 	RegisterService service;
 
+	@Autowired
+	JavaMailSenderImpl mailSender;
+	
 	@GetMapping("/regForm")
 	public String regForm() {
 		return "register/registerForm";
@@ -93,30 +96,46 @@ public class RegisterController {
 		return mav;
 	}
 	
-	@GetMapping("regIdFindPage")
-	public String regIdFindPage() {
-		return "register/regIdFindPage";
+	// 아이디 찾기(폼)
+	@GetMapping("/idSearch")
+	public String idSearchForm() {
+		return "register/idSearch";
 	}
 	
-	
-	@PostMapping("/regIdFind")
+	@PostMapping("/idSearchOk")
 	@ResponseBody
-	public Map<String, String> regIdFind(String namefind, String emailfind) {
-	    String id = findId(namefind, emailfind);
-
-	    Map<String, String> response = new HashMap<String, String>();
-	    response.put("id", id);
-
-	    return response;
+	public String idSearchOk(RegisterDTO dto) {
+		System.out.println(dto.toString());
+		// 이름, 연락처가 일치하는 아이디와 이메일 찾기
+		RegisterDTO resultDTO = service.idSearch(dto);
+		String resultTxt = "N";
+		System.out.println(resultDTO.toString());
+		if (resultDTO != null) { // 일치하는 정보 있을때
+			// 이메일 보내기
+			
+			String subject = "아이디 찾기 결과";
+			String content = "<div style='background:pink; "
+					+ "border:1px solid #ddd; padding:50px; text-align:center;'>";
+			content += "검색한 아이디는 :" + resultDTO.getUserid();
+			content += "</div>";
+			
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+				
+				messageHelper.setFrom("winterer601@naver.com");
+				messageHelper.setTo("mistyone19@naver.com");
+				messageHelper.setSubject(subject);
+				messageHelper.setText("text/html;charset=UTF-8", content);
+				mailSender.send(message);
+				resultTxt = "Y";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
+		} else {
+			resultTxt = "N";
+		}
+		return resultTxt;
 	}
-
-	
-	  private String findId(String namefind, String emailfind) {
-	  
-	  RegisterDTO dto = service.findId(namefind, emailfind);
-	  System.out.println(dto.toString()); String id = dto.getUserid(); 
-	  return id;
-	  
-	  }
 	 
 }

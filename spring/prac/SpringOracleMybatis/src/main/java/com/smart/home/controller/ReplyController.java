@@ -36,4 +36,19 @@ public class ReplyController {
 		return service.replySelect(no);
 
 	}
+	
+	// ´ñ±Û ¼öÁ¤(DB:update)
+	@PostMapping("/reply/replyEditOk")
+	@ResponseBody
+	public int replyEditOk(ReplyDTO dto) {
+		return service.replyUpdate(dto);
+		
+	}
+	
+	// ´ñ±Û»èÁ¦
+	@GetMapping("/reply/replyDel")
+	@ResponseBody
+	public String replyDel(int re_no) {
+		return String.valueOf(service.replyDel(re_no));
+	}
 }

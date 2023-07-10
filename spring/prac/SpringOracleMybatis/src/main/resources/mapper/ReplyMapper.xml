@@ -13,6 +13,16 @@
   		from replyboard where no=${param1}
   		order by re_no desc
   	</select>
+  	
+  	<update id="replyUpdate">
+  		update replyboard set coment=#{coment}
+  		where re_no=${re_no} 
+  	</update>
+  	
+  	<delete id="replyDel">
+  		delete from replyboard
+  		where re_no=${param1}
+  	</delete>
   </mapper>
   
   

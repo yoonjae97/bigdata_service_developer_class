@@ -30,4 +30,9 @@ public class RegisterServiceImpl implements RegisterService {
 	public RegisterDTO findId(String namefind, String emailfind) {
 		return dao.findId(namefind, emailfind);
 	}
+
+	@Override
+	public RegisterDTO idSearch(RegisterDTO dto) {
+		return dao.idSearch(dto);
+	}
 }

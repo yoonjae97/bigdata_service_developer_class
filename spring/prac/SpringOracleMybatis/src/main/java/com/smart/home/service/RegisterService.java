@@ -8,4 +8,6 @@ public interface RegisterService {
 	public RegisterDTO loginOk(String userid, String userpwd);
 
 	public RegisterDTO findId(String namefind, String emailfind);
+
+	public RegisterDTO idSearch(RegisterDTO dto);
 }

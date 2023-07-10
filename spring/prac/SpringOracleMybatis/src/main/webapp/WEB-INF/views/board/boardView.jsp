@@ -22,10 +22,28 @@
 					$(replyResult).each(function(i, coment){
 						var tag = "<li><div>";
 						tag += "<b>"+coment.userid+"("+coment.writedate + ")</b>";
-						// 수정 삭제
-						tag += "<p>"+coment.coment+"</p></div>";
+						// 수정 삭제버튼
+						// 로그인 한 사람이 쓴 댓글일 때
+						if(coment.userid=='${logId}'){ // 'goguma' == goguma 비교할 값들의 형식이 다름
+							tag += "<input type='button' value='Edit'/>";
+							tag += "<input type='button' value='Del' title='"+coment.re_no+"'/>";
+							tag += "<p>"+coment.coment+"</p></div>"; // 댓글 내용
+							// 댓글 수정폼
+							tag += "<div style='display:none;'>";
+							tag += "<form>";
+							tag += "<textarea style='width:400px;' name='coment'>";
+							// 글내용수정, 댓글번호
+							tag += coment.coment;
+							tag += "</textarea>";	
+							// 나중에 추가한 태그는 event 안먹음 선택자를 document로 해야한다.
+							tag += "<input type='hidden' name='re_no' value='"+coment.re_no+"'/>";
+							tag += "<input type='button' value='수정하기'/>";
+							tag += "</form>";
+							tag += "</div>";
+						} else {
+							tag += "<p>"+coment.coment+"</p></div>";	
+						}
 						tag += "</li>";
-						
 						$("#replyList").append(tag);
 					});
 				},
@@ -67,6 +85,67 @@
 			});
 			
 		});
+		// 댓글 수정 폼
+		// $("#replyList input[value==Edit]").click();
+		// 			이벤트 종류 / 대상 / 함수
+		$(document).on('click', '#replyList input[value=Edit]', function(){
+			// 해당댓글은 숨기기
+			$(this).parent().css('display', 'none');
+			// 수정폼은 보여주고 
+			$(this).parent().next().css('display', 'block');
+			
+		
+		})
+		// 댓글 수정(DB)
+		$(document).on('click', '#replyList input[value=수정하기]', function(){
+			let params = $(this).parent().serialize(); // re_no=??&coment=??
+			
+			$.ajax({
+				url:'/home/reply/replyEditOk',
+				data:params,
+				type:'POST',
+				success:function(result){
+					if(result==0){
+						alert("댓글 수정 실패");
+					} else{
+						alert("댓글 수정 완료");
+						replyAllList();
+					}
+				},
+				error:function(e){
+					console.log(e.responseText)
+				}
+			})
+		})
+		// 댓글 삭제
+		$(document).on('click', '#replyList input[value=Del]', function(){
+			// 댓글번호    attr(), prop()
+			// 			attr('title'), attr('title', '200')
+			
+			if (!confirm("댓글을 삭제하시겠습니까?")) {
+				return false;
+			} 
+			let re_no = $(this).attr('title')
+			$.ajax({
+				url:"/home/reply/replyDel",
+				data: {
+					re_no:re_no
+				},
+				success:function(result){
+					if(result=='0'){
+						alert("댓글이 삭제되지 않았습니다");
+					} else{
+						alert("댓글 삭제 완료")
+						replyAllList();
+					}
+				},
+				error:function(e){
+					console.log(e.responseText);
+				}
+			});
+
+		});
+		
 		
 		// 해당 글의 댓글 목록 
 		replyAllList();

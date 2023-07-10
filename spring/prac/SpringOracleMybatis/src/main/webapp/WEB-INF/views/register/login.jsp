@@ -29,8 +29,9 @@
 				placeholder="비밀번호 입력" /></li>
 			<li><input type="submit" value="로그인" /></li>
 			<li>
+			<!-- 이름과 연락처를 입력받아 DB에서 아이디와 이메일을 조회한 후 이메일로 아이디를 보낸다. -->
 				<div>
-					<a href="<%=request.getContextPath()%>/register/regIdFindPage">아이디
+					<a href="<%=request.getContextPath()%>/register/idSearch">아이디
 						찾기</a>이메일로 보내기
 				</div>
 				<div>
