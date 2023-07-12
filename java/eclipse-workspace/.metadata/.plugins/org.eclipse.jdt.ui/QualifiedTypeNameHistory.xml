@@ -17,4 +17,6 @@
     <fullyQualifiedTypeName name="java.sql.Driver"/>
     <fullyQualifiedTypeName name="java.sql.DriverManager"/>
     <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServlet"/>
+    <fullyQualifiedTypeName name="java.awt.Taskbar.Feature"/>
+    <fullyQualifiedTypeName name="java.awt.Window.Type"/>
 </qualifiedTypeNameHistroy>
