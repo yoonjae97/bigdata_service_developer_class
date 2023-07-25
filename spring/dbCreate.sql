@@ -6,7 +6,7 @@ CREATE TABLE Members (
 	MemberEmail VARCHAR2(100) NOT NULL, /* 회원이메일 */
 	MemberName VARCHAR2(50) NOT NULL, /* 회원이름 */
 	MemberTel VARCHAR2(20), /* 회원전화번호 */
-	MemberBirth DATE, /* 회원생년월일 */
+	MemberBirth VARCHAR2(20), /* 회원생년월일 */
 	MemberGender VARCHAR(5), /* 회원성별 */
 	MemberGradeName VARCHAR2(50) NOT NULL, /* 회원등급 */
 	MemberDeposit NUMBER DEFAULT 0 /* 회원예치금 */
@@ -38,6 +38,7 @@ CREATE TABLE Challenges (
 	ChalStartDate DATE NOT NULL, /* 챌린지시작일 */
 	ChalEndDate DATE NOT NULL, /* 챌린지종료일 */
 	ChalStatus CHAR(1) DEFAULT 0 NOT NULL, /* 챌린지활성화여부 */
+	ChalFileName VARCHAR2(100), /* 첼린지파일이름 */
 	SuccessParticipants85 NUMBER DEFAULT 0 NOT NULL, /* 85%이상100%미만달성자수 */
 	SuccessParticipants100 NUMBER DEFAULT 0 NOT NULL /* 100%달성자수 */
 );
@@ -112,20 +113,6 @@ ALTER TABLE QAComments
 		CONSTRAINT PK_QAComments
 		PRIMARY KEY (
 			QACommentNo
-		);
-
-/* 챌린지파일 */
-CREATE TABLE ChalFiles (
-	chalFileNo NUMBER NOT NULL, /* 챌린지파일번호 */
-	ChalNo NUMBER NOT NULL, /* 챌린지번호 */
-	chalFileName VARCHAR2(100) NOT NULL /* 첼린지파일이름 */
-);
-
-ALTER TABLE ChalFiles
-	ADD
-		CONSTRAINT PK_ChalFiles
-		PRIMARY KEY (
-			chalFileNo
 		);
 
 /* 회원등급 */
@@ -204,7 +191,8 @@ ALTER TABLE ChallengeComments
 		)
 		REFERENCES Members (
 			MemberId
-		);
+		)
+		ON DELETE CASCADE;
 
 ALTER TABLE ChallengeComments
 	ADD
@@ -214,7 +202,8 @@ ALTER TABLE ChallengeComments
 		)
 		REFERENCES Challenges (
 			ChalNo
-		);
+		)
+		ON DELETE CASCADE;
 
 ALTER TABLE DepositTransactions
 	ADD
@@ -224,7 +213,8 @@ ALTER TABLE DepositTransactions
 		)
 		REFERENCES Members (
 			MemberId
-		);
+		)
+		ON DELETE CASCADE;
 
 ALTER TABLE QABoard
 	ADD
@@ -234,7 +224,8 @@ ALTER TABLE QABoard
 		)
 		REFERENCES Members (
 			MemberId
-		);
+		)
+		ON DELETE CASCADE;
 
 ALTER TABLE QAComments
 	ADD
@@ -244,17 +235,8 @@ ALTER TABLE QAComments
 		)
 		REFERENCES QABoard (
 			QANo
-		);
-
-ALTER TABLE ChalFiles
-	ADD
-		CONSTRAINT FK_Challenges_TO_ChalFiles
-		FOREIGN KEY (
-			ChalNo
 		)
-		REFERENCES Challenges (
-			ChalNo
-		);
+		ON DELETE CASCADE;
 
 ALTER TABLE QABoardFile
 	ADD
@@ -264,7 +246,8 @@ ALTER TABLE QABoardFile
 		)
 		REFERENCES QABoard (
 			QANo
-		);
+		)
+		ON DELETE CASCADE;
 
 ALTER TABLE ChalParticipantLogs
 	ADD
@@ -274,7 +257,8 @@ ALTER TABLE ChalParticipantLogs
 		)
 		REFERENCES Challenges (
 			ChalNo
-		);
+		)
+		ON DELETE CASCADE;
 
 ALTER TABLE ChalParticipantLogs
 	ADD
@@ -284,7 +268,8 @@ ALTER TABLE ChalParticipantLogs
 		)
 		REFERENCES Members (
 			MemberId
-		);
+		)
+		ON DELETE CASCADE;
 
 ALTER TABLE MemberAchievement
 	ADD
@@ -294,7 +279,8 @@ ALTER TABLE MemberAchievement
 		)
 		REFERENCES Challenges (
 			ChalNo
-		);
+		)
+		ON DELETE CASCADE;
 
 ALTER TABLE MemberAchievement
 	ADD
@@ -304,8 +290,10 @@ ALTER TABLE MemberAchievement
 		)
 		REFERENCES Members (
 			MemberId
-		);
-        
+		)
+		ON DELETE CASCADE;
+    
+       
 CREATE SEQUENCE chalno_seq
     START WITH 1
     INCREMENT BY 1;
@@ -336,9 +324,54 @@ CREATE SEQUENCE QAno_seq
 
 CREATE SEQUENCE QAFileNO_seq
     START WITH 1
-    INCREMENT BY 1;
-    
-CREATE SEQUENCE QACommentNo_seq
-    START WITH 1
-    INCREMENT BY 1;
-    
+    INCREMENT BY 1;    
+        
+CREATE OR REPLACE TRIGGER trg_UpdateMemberAchievement
+BEFORE INSERT ON ChalParticipantLogs
+FOR EACH ROW
+DECLARE
+  v_TotalDays NUMBER;
+  v_AchievementCount NUMBER;
+  v_AchievementRate NUMBER;
+BEGIN
+  -- 해당 챌린지의 총 기간 계산 (Challenges 테이블로부터)
+  SELECT ChalEndDate - ChalStartDate + 1 INTO v_TotalDays
+  FROM Challenges
+  WHERE ChalNo = :NEW.ChalNo;
+  
+  -- 해당 챌린지에 대한 인증 횟수 계산 (ChalParticipantLogs 테이블로부터)
+  SELECT COUNT(*) + 1 INTO v_AchievementCount
+  FROM ChalParticipantLogs
+  WHERE ChalNo = :NEW.ChalNo AND MemberId = :NEW.MemberId;
+
+  -- 달성률 계산
+  IF v_TotalDays > 0 THEN
+    v_AchievementRate := (v_AchievementCount / v_TotalDays) * 100;
+  ELSE
+    v_AchievementRate := 0;
+  END IF;
+
+  -- 업데이트된 달성률을 MemberAchievement 테이블에 저장하거나 새 레코드를 추가
+  UPDATE MemberAchievement
+  SET AchievementRate = v_AchievementRate
+  WHERE ChalNo = :NEW.ChalNo AND MemberId = :NEW.MemberId;
+
+  IF SQL%ROWCOUNT = 0 THEN
+    INSERT INTO MemberAchievement (MemberAchievementNo, MemberId, ChalNo, AchievementRate)
+    VALUES (MemberAchievementNo_seq.NEXTVAL, :NEW.MemberId, :NEW.ChalNo, v_AchievementRate);
+  END IF;
+  
+  -- 집계 값을 Challenges 테이블에 업데이트
+  UPDATE Challenges
+  SET SuccessParticipants85 = (
+    SELECT COUNT(*)
+    FROM MemberAchievement
+    WHERE ChalNo = :NEW.ChalNo AND AchievementRate >= 85 AND AchievementRate < 100
+  ),
+  SuccessParticipants100 = (
+    SELECT COUNT(*)
+    FROM MemberAchievement
+    WHERE ChalNo = :NEW.ChalNo AND AchievementRate >= 100
+  )
+  WHERE ChalNo = :NEW.ChalNo;
+END;
