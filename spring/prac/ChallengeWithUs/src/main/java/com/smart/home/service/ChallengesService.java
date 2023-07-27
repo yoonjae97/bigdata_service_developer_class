@@ -23,6 +23,24 @@ public interface ChallengesService {
 
 	public int ChallengeDelete(int chalNo);
 
+	public int ChallengePartCheck(int chalNo, String logId);
+
+	public int ChallengePart(int chalNo, String logId);
+
+	public void UpdateFeePartCnt(int chalNo);
+
+	public int GetParticipantsCnt(int chalNo);
+
+	public int GetDeposit(String logId);
+
+	public void UpdateDeposit(String logId, int memDeposit);
+
+	public int findLog(String string);
+
+	public void addLog(String logId, int chalNo);
+
+	public void DepositTransactions(String logId, int i, int memDeposit);
+
 	
 
 }

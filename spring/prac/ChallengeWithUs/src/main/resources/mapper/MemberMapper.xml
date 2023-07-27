@@ -21,7 +21,7 @@
 
 	<select id="findId" resultType="String">
 		select memberid from members
-		where memberid=#{param1} and memberEmail=#{param2}
+		where memberName=#{param1} and memberEmail=#{param2}
 	</select>
 
 	<select id="dupChk" resultType="String">
@@ -38,7 +38,7 @@
 		select
 		MemberId, MemberName, MemberGender,
 		MemberPwd, MemberEmail, MemberTel,
-		MemberAddr, MemberBirth
+		MemberAddr, MemberBirth, memberdeposit
 		from members where memberid=#{param1}
 	</select>
 
