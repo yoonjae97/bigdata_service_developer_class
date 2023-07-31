@@ -125,7 +125,7 @@ public class MemberController {
 			mav.setViewName("register/FindID");
 		} else {
 			mav.addObject("MemberId", memberId);
-			mav.setViewName("yj/returnMemberId");
+			mav.setViewName("register/FindIdForm");
 		}
 
 		return mav;

@@ -325,7 +325,10 @@ CREATE SEQUENCE QAno_seq
 CREATE SEQUENCE QAFileNO_seq
     START WITH 1
     INCREMENT BY 1;    
-        
+
+create sequence qacommentno_seq
+    start with 1
+    increment by 1;
 CREATE OR REPLACE TRIGGER trg_UpdateMemberAchievement
 BEFORE INSERT ON ChalParticipantLogs
 FOR EACH ROW
@@ -375,3 +378,70 @@ BEGIN
   )
   WHERE ChalNo = :NEW.ChalNo;
 END;
+
+CREATE OR REPLACE PROCEDURE PROCESS_CHALLENGE_DEPOSITS_PROC AS
+  v_chal_no Challenges.ChalNo%TYPE;
+  v_chal_fee Challenges.ChalFee%TYPE;
+  v_success_participants_85 Challenges.SuccessParticipants85%TYPE;
+  v_success_participants_100 Challenges.SuccessParticipants100%TYPE;
+  v_total_fee Challenges.ChalTotalFee%TYPE;
+  v_return_amount Challenges.ChalTotalFee%TYPE;
+BEGIN
+  FOR chal_rec IN (SELECT ChalNo, ChalFee, SuccessParticipants85, SuccessParticipants100, ChalTotalFee
+                   FROM Challenges
+                   WHERE ChalStatus = '1'
+                   AND ChalEndDate <= SYSDATE) -- Consider only active challenges that have ended
+  LOOP
+    v_chal_no := chal_rec.ChalNo;
+    v_chal_fee := chal_rec.ChalFee;
+    v_success_participants_85 := chal_rec.SuccessParticipants85;
+    v_success_participants_100 := chal_rec.SuccessParticipants100;
+    v_total_fee := chal_rec.ChalTotalFee;
+    
+    -- Calculate the return amount per 100% achiever
+    v_return_amount := (v_total_fee - (v_success_participants_85 * v_chal_fee)) / v_success_participants_100;
+    
+    -- Process 85% <= AchievementRate < 100%
+    FOR ach_rec IN (SELECT ma.MemberId, ma.AchievementRate
+                    FROM MemberAchievement ma
+                    WHERE ma.ChalNo = v_chal_no
+                      AND ma.AchievementRate >= 85
+                      AND ma.AchievementRate < 100)
+    LOOP
+      UPDATE Members m
+      SET m.MemberDeposit = m.MemberDeposit + v_chal_fee
+      WHERE m.MemberId = ach_rec.MemberId;
+      
+      -- Insert into DepositTransactions table
+      INSERT INTO DepositTransactions (DepositTransNo, MemberId, DepositAmount, DepositContent, DepositBalance)
+      VALUES (DepositTransNo_Seq.NEXTVAL, ach_rec.MemberId, v_chal_fee, 'Challenge reward deposit', m.MemberDeposit);
+    END LOOP;
+    
+    -- Process 100% AchievementRate
+    FOR ach_rec IN (SELECT ma.MemberId, ma.AchievementRate
+                    FROM MemberAchievement ma
+                    WHERE ma.ChalNo = v_chal_no
+                      AND ma.AchievementRate >= 100)
+    LOOP
+      UPDATE Members m
+      SET m.MemberDeposit = m.MemberDeposit + v_return_amount
+      WHERE m.MemberId = ach_rec.MemberId;
+      
+      -- Insert into DepositTransactions table
+      INSERT INTO DepositTransactions (DepositTransNo, MemberId, DepositAmount, DepositContent, DepositBalance)
+      VALUES (DepositTransNo_Seq.NEXTVAL, ach_rec.MemberId, v_return_amount, 'Challenge reward deposit', m.MemberDeposit);
+    END LOOP;
+
+    -- Set challenge status to 0 after distributing deposits
+    UPDATE Challenges
+    SET ChalStatus = '0'
+    WHERE ChalNo = v_chal_no;
+  END LOOP;
+  
+  COMMIT;
+EXCEPTION
+  WHEN OTHERS THEN
+    ROLLBACK;
+    RAISE;
+END;
+/

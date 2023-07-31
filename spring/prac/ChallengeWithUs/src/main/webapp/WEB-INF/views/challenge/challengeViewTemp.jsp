@@ -30,7 +30,7 @@
   
     
     <div class="WalletAmount-top">
-      <div class="SmhrdId">smhrd<br/>(ID)</div>
+      <div class="SmhrdId">${dto.memberId }<br/>(ID)</div>
       <div class="Membership">회원등급</div>
     </div>
    
@@ -42,7 +42,7 @@
       <div class="text-wrapper">총 참가자 수</div>
     </div>
     <div class="Group3 participation-fee">
-      <div class="participation-fee-amount">${dto.chalFee }원</div>
+      <div class="participation-fee-amount">${dto.chalFee }</div>
       <div class="text-wrapper">참가비</div>
     </div>
     <c:choose>
@@ -68,16 +68,18 @@
   <form action="">
     <div class="challenge-authentication">
       <div class="WalletAmount"></div>
-      <div class="instruction-title"><button type="button" onclick="upload()">챌린지 인증</button></div>
-      
+      <div class="instruction-title"><button type="button" onclick="upload()" class="chalCfrm">챌린지 인증</button></div> 
     </div>
+    
     <div class="file-upload">
+     <div class="WalletAmount"></div>
+     <div class="instruction-title">
+        <input type="file" id="imageInput" value="파일첨부" style="display: none;">
+           <label for="imageInput" class="file-upload-button">파일첨부</label>
+     </div>
+   </div>
 
-      <div class="WalletAmount"></div>
-      <div class="instruction-title">파일 업로드</div>
-          <input type="file" id="imageInput" value="파일첨부"/>
-    </div>
-    </form>
+  </form>
     <div class="Group8">
       <div class="instruction-content">
         기상 시간을 확인 할 수 있도록<br/>“챌린지 인증” 버튼을 눌러 주세요
@@ -186,8 +188,11 @@ $("#challengePart").on("click", function(){
 				
 			} else if (result.result == 0){
 				alert("이미 참여중인 챌린지 입니다.");	
+				return false;
 			} else if (result.result == 3) {
-				alert("예치금이 부족합니다!");				
+				alert("예치금이 부족합니다!");	
+				window.location.href= "${pageContext.request.contextPath}//myPage/payForm";
+				return false;
 			}
 			else {
 				alert("로그인 후 참여가 가능합니다.");
@@ -201,19 +206,15 @@ $("#challengePart").on("click", function(){
 function upload() {
 		console.log("upload function called")
 		const imageInput = $("#imageInput")[0]
-		
-		if(imageInput.files.length==0) {
-			alert("이미지를 업로드해주세요")
-			return;
-		}
 		if (randomCode==null) {
 			alert("인증 코드를 먼저 발급해주세요!")
 			return;
 		}
-		console.log(randomCode);
 		const formData = new FormData();
 		formData.append("image", imageInput.files[0])
 		formData.append("chalNo", ${dto.chalNo})
+		
+
 		formData.append("randomCode", randomCode)
 		$.ajax({
 			type:"POST",
@@ -221,20 +222,29 @@ function upload() {
 			processData:false,
 			contentType:false,
 			data:formData,
-			success:function(result) {		
+			success:function(result) {	
+				console.log(result);
 				if (result == "noId") {
 					alert("로그인 후 인증해주세요!")
 					window.location.href= "${pageContext.request.contextPath}/register/login";
-				} else if (result == "needPart") {
-					alert("챌린지에 먼처 참가를 하고 인증을 해주세요!")				
+				} else if(result =="") {
+					alert("이미지를 업로드해주세요")
+					return;
+				}
+				
+				else if (result == "needPart") {
+					alert("챌린지에 먼처 참가를 하고 인증을 해주세요!")
+					return false;
 				} else if (result == "already") {
 					alert("오늘은 이미 인증을 완료하셨습니다!")
+					return false;
 				} else if (result=="success") {
 					alert("인증되었습니다!")
+					return false;
 				} else {
 					alert("코드와 일치하지 않는 인증번호입니다!")
+					return false;
 				}
-				console.log(result)
 			},
 			error:function(error) {
 				console.log(e.responseText)

@@ -9,28 +9,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/inc/viewsCss/accountView.css"
 	type="text/css" />
-<style>
-.deposit_list, .page>ul {
-	overflow: auto;
-}
 
-.deposit_list>li {
-	list-style-type: none;
-	float: left;
-	height: 40px;
-	line_height: 40px;
-	border-bottom: 1px solid #ddd;
-	width: 15%;
-}
-
-.deposit_list>li:nth-child(5n+3) {
-	width: 30%;
-	/* 말줄임표시 */
-	white-space: nowrap; /* 줄바꾸지 않기 */
-	overflow: hidden; /* 넘친 값 숨기기 */
-	text-overflow: ellipsis; /* ... 표시하기 */
-}
-</style>
 <div class="deposit-management">
 	<div class="Ellipse5"></div>
 	<div class="center">
@@ -52,8 +31,21 @@
 	<div class="LeftSide">
 		<div class="username">${mdto.memberName }</div>
 	</div>
-	<div>
-		<ul class="deposit_list">
+	
+
+</div>
+<style>
+.board_list {
+max-width: 1200px; /* Limit the maximum width of .navibar-login */
+	width: 100%; /* Set .navibar-login width to 100% of nav */
+	justify-content: center; /* Center the .navibar-login horizontally */
+	align-items: center;
+	position: relative;
+	}
+</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/inc/viewsCss/boardList.css" type="text/css"/>
+<div>
+		<ul class="board_list">
 			<li>회원아이디</li>
 			<li>결제금액</li>
 			<li>결제내용</li>
@@ -68,9 +60,5 @@
 			</c:forEach>
 		</ul>
 	</div>
-
-</div>
-
-
 
 

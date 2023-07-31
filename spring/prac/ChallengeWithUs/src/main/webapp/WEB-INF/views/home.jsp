@@ -27,7 +27,7 @@
 					입니다. 부지런한 생활습관을 만들고 싶은 분들은 이 챌린지에 도전하세요</div>
 				<div class="Button">
 					<button>
-						<a href="/home/challenge">GO</a>
+						GO
 					</button>
 				</div>
 			</div>

@@ -57,7 +57,7 @@ public class HomeController {
 		List<ChallengesDTO> list = service.ChallengesList(pDTO);
 
 		ModelAndView mav = new ModelAndView();
-
+		System.out.println(list);
 		mav.addObject("list", list);
 		mav.addObject("pDTO", pDTO);
 		mav.setViewName("home");
@@ -166,7 +166,7 @@ public class HomeController {
 			return response;
 		}
 		
-		// 2차 참가여부 확인
+		 //2차 참가여부 확인
 		try {
 			int checkPart = service.ChallengePartCheck(chalNo, logId);
 			if (checkPart > 0) {
@@ -175,9 +175,8 @@ public class HomeController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		// 3차 예치금 확인 및 차감
+		}		
+		 //3차 예치금 확인 및 차감
 		try {
 			int memDeposit = service.GetDeposit(logId);
 			if (memDeposit < chalFee) {
@@ -204,7 +203,6 @@ public class HomeController {
 		
 		response.put("participantsCnt", participantsCnt);
 		return response;
-
 	}
 
 	@PostMapping("/imgCertify")
@@ -212,11 +210,16 @@ public class HomeController {
 	public String imgCertify(HttpSession session, @RequestParam("image") MultipartFile image, int chalNo, int randomCode) {
 		String result = null;
 		int cnt = 0;
+		System.out.println(randomCode);
 		String logId = (String)session.getAttribute("logId");
 		// 1차 로그인 여부 확인
 		if (logId==null || logId=="") {
 			return "noId";
 		}
+		if (image == null || image.isEmpty()) {
+		    return "noImage";
+		}
+		
 		// 챌린지 참가여부 확인
 		cnt = service.ChallengePartCheck(chalNo, logId);
 		if (cnt == 0) {

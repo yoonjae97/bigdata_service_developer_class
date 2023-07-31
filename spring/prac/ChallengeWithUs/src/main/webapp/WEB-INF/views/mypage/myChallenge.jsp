@@ -48,7 +48,7 @@
 	      <div class="Title">미라클 모닝 챌린지</div>
 	      <div class="Description">아침에 일찍 일어나고 싶은데 늘 실패하는 분들을 위해 준비한 챌린지 입니다. 부지런한 생활습관을 만들고 싶은 분들은 이 챌린지에 도전하세요</div>
 	      <div class="Button">
-	        <button><a href="/home/challenge">GO</a></button>
+	        <button>GO</button>
 	      </div>
 	    </div>
 	  </div>

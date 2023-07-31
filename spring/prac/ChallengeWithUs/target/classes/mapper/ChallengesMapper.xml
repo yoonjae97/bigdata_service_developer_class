@@ -125,7 +125,7 @@
 	
 	<insert id="DepositTransactions">
 	insert into DepositTransactions values(DepositTransNo_seq.nextval, 
-	#{param1}, ${param2}, sysdate, '챌린지 참여', ${param3});
+	#{param1}, ${param2}, sysdate, '챌린지 참여', ${param3})
 	</insert>
 	
 	<select id="findLog" resultType="int">
